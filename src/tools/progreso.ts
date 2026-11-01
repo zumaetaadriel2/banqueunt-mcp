@@ -43,7 +43,7 @@ export function registrarProgreso(server: McpServer, ctx: Contexto): void {
       annotations: { readOnlyHint: true, openWorldHint: false },
     },
     ({ curso }) =>
-      ejecutar(async () => {
+      ejecutar(ctx, 'mi_progreso', async () => {
         const p = calcularProgreso(
           await ctx.repo.simulacrosCorregidos(ctx.usuario, curso),
           await ctx.repo.itemsRespondidos(ctx.usuario, curso),

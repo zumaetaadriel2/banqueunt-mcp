@@ -2,7 +2,14 @@ import { mkdirSync } from 'node:fs';
 import { homedir } from 'node:os';
 import path from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
-import type { ItemRespondido, ProgresoRepo, ResumenSimulacro, Simulacro } from './repo.js';
+import type {
+  ItemRespondido,
+  Llamada,
+  ProgresoRepo,
+  ResumenSimulacro,
+  Simulacro,
+  UsoUsuario,
+} from './repo.js';
 
 const ESQUEMA = `
 create table if not exists simulacros (
@@ -30,6 +37,16 @@ create table if not exists simulacro_items (
   primary key (simulacro_id, orden)
 );
 create index if not exists items_pregunta on simulacro_items (pregunta_id);
+
+create table if not exists llamadas (
+  id           integer primary key,
+  usuario      text not null,
+  herramienta  text not null,
+  cantidad     integer not null,
+  en           text not null,
+  resultado    text not null
+);
+create index if not exists llamadas_usuario on llamadas (usuario, en);
 `;
 
 /** %LOCALAPPDATA%\banqueunt-mcp\progreso.db en Windows; ~/.local/share/banqueunt-mcp en el resto. */
@@ -191,6 +208,42 @@ export class SqliteProgresoRepo implements ProgresoRepo {
       )
       .get(usuario, preguntaId) as Fila | undefined;
     return f ? { curso: String(f.curso) } : undefined;
+  }
+
+  async registrarLlamada(l: Llamada): Promise<void> {
+    this.db
+      .prepare('insert into llamadas (usuario, herramienta, cantidad, en, resultado) values (?, ?, ?, ?, ?)')
+      .run(l.usuario, l.herramienta, l.cantidad, l.en, l.resultado);
+  }
+
+  async preguntasServidas(usuario: string, desde: string): Promise<number> {
+    const f = this.db
+      .prepare(
+        `select coalesce(sum(cantidad), 0) as total from llamadas
+          where usuario = ? and en >= ? and resultado = 'ok'`,
+      )
+      .get(usuario, desde) as Fila;
+    return Number(f.total);
+  }
+
+  async usoPorUsuario(desde: string): Promise<UsoUsuario[]> {
+    const filas = this.db
+      .prepare(
+        `select usuario, count(*) as llamadas,
+                coalesce(sum(case when resultado = 'ok' then cantidad end), 0) as preguntas,
+                sum(resultado = 'limite') as rechazadas
+           from llamadas
+          where en >= ?
+          group by usuario
+          order by preguntas desc, llamadas desc`,
+      )
+      .all(desde) as Fila[];
+    return filas.map((f) => ({
+      usuario: String(f.usuario),
+      llamadas: Number(f.llamadas),
+      preguntas: Number(f.preguntas),
+      rechazadas: Number(f.rechazadas),
+    }));
   }
 
   cerrar(): void {

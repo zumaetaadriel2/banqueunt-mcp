@@ -38,7 +38,7 @@ export function registrarBuscar(server: McpServer, ctx: Contexto): void {
       annotations: { readOnlyHint: true, openWorldHint: false },
     },
     (args) =>
-      ejecutar(async () => {
+      ejecutar(ctx, 'buscar_preguntas', async (servir) => {
         const curso = await ctx.banco.resolverCurso(args.curso);
         const encontradas = filtrar(await ctx.banco.unicas(curso), {
           texto: args.texto,
@@ -49,6 +49,7 @@ export function registrarBuscar(server: McpServer, ctx: Contexto): void {
           soloPrioritarias: args.solo_prioritarias,
         });
         const { pagina, siguiente } = paginar(encontradas, args.limite, args.cursor);
+        await servir(pagina.length);
         const preguntas = pagina.map(aPreguntaPublica);
         const texto = encontradas.length
           ? [
