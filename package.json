@@ -11,7 +11,7 @@
     "data/muestra.json"
   ],
   "engines": {
-    "node": ">=22"
+    "node": ">=22.13"
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
