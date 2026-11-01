@@ -10,8 +10,8 @@ export function registrarProgreso(server: McpServer, ctx: Contexto): void {
     {
       title: 'Mi progreso',
       description:
-        'Resume los simulacros corregidos del alumno: porcentaje global, rendimiento por especialidad, los temas ' +
-        'más débiles y los últimos simulacros. Úsalo para recomendar qué repasar.',
+        'Resume los simulacros corregidos del alumno: porcentaje global, rendimiento por especialidad, temas ' +
+        'débiles (2+ respuestas), temas fallados recientemente y últimos simulacros. Úsalo para recomendar qué repasar.',
       inputSchema: { curso: z.string().optional().describe('Solo ese curso; sin él, todos') },
       outputSchema: {
         simulacros: z.int(),
@@ -20,6 +20,14 @@ export function registrarProgreso(server: McpServer, ctx: Contexto): void {
         porcentaje: z.int(),
         porEspecialidad: z.array(Rendimiento),
         temasDebiles: z.array(Rendimiento.extend({ especialidad: z.string() })),
+        temasFallados: z.array(
+          z.object({
+            nombre: z.string(),
+            especialidad: z.string(),
+            fallas: z.int(),
+            ultimaFalla: z.string(),
+          }),
+        ),
         ultimos: z.array(
           z.object({
             id: z.string(),
@@ -55,6 +63,12 @@ export function registrarProgreso(server: McpServer, ctx: Contexto): void {
                 ...p.temasDebiles.map(
                   (t) =>
                     `- ${t.nombre} (${t.especialidad}): ${t.aciertos}/${t.respondidas} (${t.porcentaje} %)`,
+                ),
+                p.temasFallados.length
+                  ? 'Temas fallados recientemente (para repasar):'
+                  : 'Sin temas fallados.',
+                ...p.temasFallados.map(
+                  (t) => `- ${t.nombre} (${t.especialidad})${t.fallas > 1 ? ` · ${t.fallas} fallas` : ''}`,
                 ),
                 'Últimos simulacros:',
                 ...p.ultimos.map(

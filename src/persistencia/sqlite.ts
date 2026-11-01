@@ -163,15 +163,17 @@ export class SqliteProgresoRepo implements ProgresoRepo {
   async itemsRespondidos(usuario: string, curso?: string): Promise<ItemRespondido[]> {
     const filas = this.db
       .prepare(
-        `select s.id as simulacro_id, s.curso, i.pregunta_id, i.especialidad, i.tema, i.correcta
+        `select s.id as simulacro_id, s.curso, s.corregido_en, i.pregunta_id, i.especialidad, i.tema, i.correcta
            from simulacro_items i
            join simulacros s on s.id = i.simulacro_id
-          where s.usuario = ? and s.corregido_en is not null and (? is null or s.curso = ?)`,
+          where s.usuario = ? and s.corregido_en is not null and (? is null or s.curso = ?)
+          order by s.corregido_en desc, i.orden`,
       )
       .all(usuario, curso ?? null, curso ?? null) as Fila[];
     return filas.map((f) => ({
       simulacroId: String(f.simulacro_id),
       curso: String(f.curso),
+      corregidoEn: String(f.corregido_en),
       preguntaId: String(f.pregunta_id),
       especialidad: String(f.especialidad),
       tema: String(f.tema),

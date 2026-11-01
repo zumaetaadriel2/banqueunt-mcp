@@ -1,0 +1,2 @@
+# Saltos de línea LF en el repo y en la copia de trabajo (evita el ruido CRLF de Windows)
+* text=auto eol=lf

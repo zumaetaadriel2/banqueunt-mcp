@@ -140,8 +140,9 @@ Los aciertos por tema se calculan con un join contra el banco cargado. La ruta d
 
 ### Fase 4: Resources, prompts y errores
 
-- [ ] Resources con completion, los 2 prompts
-- [ ] Errores claros con `isError: true`: curso inexistente o sin preguntas (`enam`), simulacro vencido o ya corregido, letra fuera de rango, curso sin acceso
+- [x] Resources con completion, los 2 prompts
+- [x] Errores claros con `isError: true`: curso inexistente o sin preguntas (`enam`), simulacro vencido o ya corregido, letra fuera de rango, curso sin acceso
+- [x] `mi_progreso` devuelve también los **temas fallados recientes** (desde la primera falla), que usa el prompt `repasar_temas_debiles`
 
 ### Fase 4.5: Protección del banco
 
