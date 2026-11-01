@@ -15,6 +15,12 @@ export interface Progreso {
   porEspecialidad: Rendimiento[];
   /** Los temas con menor porcentaje, solo entre los que tienen al menos MIN_PARA_DEBIL respuestas */
   temasDebiles: (Rendimiento & { especialidad: string })[];
+  /**
+   * Temas con alguna falla, del más reciente al más antiguo, aunque tengan una sola respuesta.
+   * Los temas del banco son muy específicos y casi nunca se repiten en pocos simulacros, así que
+   * esta lista es la que sirve para repasar desde el primer simulacro.
+   */
+  temasFallados: { nombre: string; especialidad: string; fallas: number; ultimaFalla: string }[];
   ultimos: (ResumenSimulacro & { porcentaje: number })[];
 }
 
@@ -35,7 +41,7 @@ function agrupar(items: ItemRespondido[], clave: (it: ItemRespondido) => string)
 export function calcularProgreso(
   simulacros: ResumenSimulacro[],
   items: ItemRespondido[],
-  { maxDebiles = 5, maxUltimos = 5 } = {},
+  { maxDebiles = 5, maxFallados = 10, maxUltimos = 5 } = {},
 ): Progreso {
   const aciertos = items.filter((it) => it.correcta).length;
 
@@ -49,6 +55,22 @@ export function calcularProgreso(
     .sort((a, b) => a.porcentaje - b.porcentaje || b.respondidas - a.respondidas)
     .slice(0, maxDebiles);
 
+  // `items` llega de la corrección más reciente a la más antigua: el primero de cada tema es su última falla
+  const fallados = new Map<string, Progreso['temasFallados'][number]>();
+  for (const it of items) {
+    if (it.correcta) continue;
+    const clave = `${it.especialidad}\u0000${it.tema}`;
+    const previo = fallados.get(clave);
+    if (previo) previo.fallas++;
+    else
+      fallados.set(clave, {
+        nombre: it.tema,
+        especialidad: it.especialidad,
+        fallas: 1,
+        ultimaFalla: it.corregidoEn,
+      });
+  }
+
   return {
     simulacros: simulacros.length,
     respondidas: items.length,
@@ -56,6 +78,7 @@ export function calcularProgreso(
     porcentaje: porcentaje(aciertos, items.length),
     porEspecialidad,
     temasDebiles,
+    temasFallados: [...fallados.values()].slice(0, maxFallados),
     ultimos: simulacros
       .slice(0, maxUltimos)
       .map((s) => ({ ...s, porcentaje: porcentaje(s.aciertos, s.total) })),

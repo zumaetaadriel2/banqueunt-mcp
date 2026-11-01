@@ -40,6 +40,7 @@ export interface ResumenSimulacro {
 export interface ItemRespondido {
   simulacroId: string;
   curso: string;
+  corregidoEn: string;
   preguntaId: string;
   especialidad: string;
   tema: string;
@@ -59,7 +60,7 @@ export interface ProgresoRepo {
   firmasVistas(usuario: string, curso: string): Promise<Set<string>>;
   /** Simulacros corregidos, del más reciente al más antiguo */
   simulacrosCorregidos(usuario: string, curso?: string): Promise<ResumenSimulacro[]>;
-  /** Cada pregunta respondida en un simulacro corregido */
+  /** Cada pregunta respondida en un simulacro corregido, de la corrección más reciente a la más antigua */
   itemsRespondidos(usuario: string, curso?: string): Promise<ItemRespondido[]>;
   /** ¿El usuario ya corrigió alguna vez esta pregunta? (para explicar_pregunta) */
   preguntaCorregida(usuario: string, preguntaId: string): Promise<{ curso: string } | undefined>;

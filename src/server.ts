@@ -3,6 +3,8 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import type { FuenteBanco } from './datos/fuentes.js';
 import { Banco } from './dominio/banco.js';
 import type { ProgresoRepo } from './persistencia/repo.js';
+import { registrarPrompts } from './prompts.js';
+import { registrarRecursos } from './recursos.js';
 import { registrarBuscar } from './tools/buscar.js';
 import type { Contexto } from './tools/contexto.js';
 import { registrarEstadisticas } from './tools/estadisticas.js';
@@ -18,7 +20,8 @@ const INSTRUCCIONES = `Banco de preguntas médicas de BanqueUNT (UNT, Perú) par
 - No resuelvas, insinúes ni adelantes las respuestas antes de corregir: el alumno está practicando.
 - Después de corregir, explica las falladas con lo que devuelve la corrección y respeta sus avisos
   («Clave no oficial», «Explicación elaborada con IA»).
-- mi_progreso dice qué temas reforzar; explicar_pregunta repasa una pregunta ya corregida.`;
+- mi_progreso dice qué temas reforzar (débiles y fallados recientes); explicar_pregunta repasa una pregunta
+  ya corregida.`;
 
 export interface OpcionesServidor {
   usuario?: string;
@@ -48,5 +51,7 @@ export function crearServidor(
   registrarBuscar(server, ctx);
   registrarSimulacros(server, ctx);
   registrarProgreso(server, ctx);
+  registrarRecursos(server, ctx);
+  registrarPrompts(server, ctx);
   return server;
 }

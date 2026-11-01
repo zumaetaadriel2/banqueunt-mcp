@@ -36,6 +36,15 @@ export class Banco {
     return indice.get(id);
   }
 
+  /** Busca una pregunta por id en todos los cursos disponibles */
+  async buscarEnCursos(id: string): Promise<Pregunta | undefined> {
+    for (const curso of await this.cursos()) {
+      const q = await this.buscarPorId(curso, id);
+      if (q) return q;
+    }
+    return undefined;
+  }
+
   /**
    * Curso a usar cuando la herramienta lo deja opcional: el indicado (si está disponible) o el
    * único disponible. Con varios cursos y ninguno indicado, hay que elegir.

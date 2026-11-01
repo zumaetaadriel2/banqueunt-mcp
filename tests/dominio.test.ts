@@ -97,9 +97,15 @@ describe('corregir', () => {
 });
 
 describe('calcularProgreso', () => {
-  const item = (tema: string, correcta: boolean, especialidad = 'Cardiología'): ItemRespondido => ({
+  const item = (
+    tema: string,
+    correcta: boolean,
+    especialidad = 'Cardiología',
+    corregidoEn = '2026-11-01T10:00:00Z',
+  ): ItemRespondido => ({
     simulacroId: 's1',
     curso: 'med2_unt',
+    corregidoEn,
     preguntaId: `${tema}-${Math.random()}`,
     especialidad,
     tema,
@@ -122,5 +128,28 @@ describe('calcularProgreso', () => {
     expect(p.temasDebiles.map((t) => t.nombre)).toEqual(['IC', 'HTA']);
     expect(p.porcentaje).toBe(43);
     expect(p.porEspecialidad[0]?.nombre).toBe('Nefrología');
+  });
+
+  it('temas fallados: desde la primera falla, del más reciente al más antiguo y sin repetir', () => {
+    // Como los entrega el repo: de la corrección más reciente a la más antigua
+    const p = calcularProgreso(
+      [],
+      [
+        item('Hipernatremia', false, 'Nefrología', '2026-11-02T10:00:00Z'),
+        item('GN postestreptocócica', true, 'Nefrología', '2026-11-02T10:00:00Z'),
+        item('GN postestreptocócica', false, 'Nefrología', '2026-11-01T10:00:00Z'),
+        item('Hipernatremia', false, 'Nefrología', '2026-11-01T10:00:00Z'),
+      ],
+    );
+    expect(p.temasFallados).toEqual([
+      { nombre: 'Hipernatremia', especialidad: 'Nefrología', fallas: 2, ultimaFalla: '2026-11-02T10:00:00Z' },
+      {
+        nombre: 'GN postestreptocócica',
+        especialidad: 'Nefrología',
+        fallas: 1,
+        ultimaFalla: '2026-11-01T10:00:00Z',
+      },
+    ]);
+    expect(p.temasDebiles).toHaveLength(2);
   });
 });
