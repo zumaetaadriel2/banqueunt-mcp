@@ -1,0 +1,11 @@
+node_modules/
+dist/
+coverage/
+.env
+.env.*
+!.env.example
+*.db
+*.db-*
+# El banco real nunca se versiona: solo la muestra pública
+data/*
+!data/muestra.json

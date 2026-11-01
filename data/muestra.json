@@ -1,0 +1,749 @@
+[
+  {
+    "id": "MED2_2009_OCT_03",
+    "categoriaId": "med2_unt",
+    "anio": "2009",
+    "especialidad": "Neumología",
+    "tema": "Duración de la anticoagulación en el TEP",
+    "dificultad": "Intermedio",
+    "pregunta": "La duración del tratamiento anticoagulante en el tromboembolismo pulmonar:",
+    "opciones": [
+      "A. Depende de la persistencia o no de factores de riesgo para trombosis venosa.",
+      "B. No debe pasar de diez días.",
+      "C. Debe durar hasta la desaparición de los síntomas clínicos.",
+      "D. En general, se sigue una pauta de nueve meses.",
+      "E. En general, la pauta es de doce meses."
+    ],
+    "respuestaCorrecta": 0,
+    "fundamentoDetallado": {
+      "correcta": "La duración se individualiza según el factor desencadenante y el riesgo de recurrencia: al menos 3 meses si hubo un factor transitorio y reversible, y tratamiento prolongado o indefinido si el factor persiste (p. ej., cáncer) o el evento fue no provocado, con bajo riesgo de sangrado.",
+      "descarte": "B: 10 días es insuficiente; el mínimo es de 3 meses. C: la duración no depende de los síntomas. D y E: no hay una duración fija universal."
+    },
+    "examen": "Preguntas de Medicina II – Octubre",
+    "fuente": "Compilado de aplazados Medicina II (UNT), «Preguntas Medicina II – Octubre 2009», págs. 267–269",
+    "numero": 3,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2012_EX_01",
+    "categoriaId": "med2_unt",
+    "anio": "2012",
+    "especialidad": "Neurología",
+    "tema": "Degeneración combinada subaguda por déficit de B12",
+    "dificultad": "Intermedio",
+    "pregunta": "Mujer de 60 años que acude por deterioro indoloro de la marcha. Al examen se encuentra marcha ligeramente espástica, alteración de la sensibilidad posicional y vibratoria en los dedos de los pies y reflejos aquíleos ausentes. ¿Cuál de los siguientes diagnósticos es el más probable?",
+    "opciones": [
+      "A. Esclerosis múltiple.",
+      "B. Hipovitaminosis B12.",
+      "C. Hipovitaminosis B1.",
+      "D. Arteritis temporal.",
+      "E. Infección por HTLV-1."
+    ],
+    "respuestaCorrecta": 1,
+    "fundamentoDetallado": {
+      "correcta": "El déficit de vitamina B12 produce la degeneración combinada subaguda de la médula: afectación de los cordones posteriores (pérdida de la sensibilidad vibratoria y posicional) y de la vía piramidal (espasticidad), a menudo con neuropatía periférica asociada que explica la abolición de los reflejos aquíleos pese a la espasticidad.",
+      "descarte": "A: la esclerosis múltiple es rara a esta edad de inicio y no explica la arreflexia aquílea. C: el déficit de B1 produce neuropatía periférica (beriberi seco) y encefalopatía de Wernicke, sin signos piramidales. D: la arteritis temporal produce cefalea y pérdida visual. E: el HTLV-1 causa una paraparesia espástica con hiperreflexia, sin la neuropatía con pérdida de reflejos aquíleos."
+    },
+    "examen": "Examen de Medicina II",
+    "fuente": "Documento «Examen de Medicina II» 2012 (con claves)",
+    "numero": 1,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2012_EX_02",
+    "categoriaId": "med2_unt",
+    "anio": "2012",
+    "especialidad": "Gastroenterología",
+    "tema": "Peritonitis bacteriana espontánea",
+    "dificultad": "Fácil",
+    "pregunta": "Varón de 45 años con diagnóstico de cirrosis que presenta dolor abdominal generalizado de 24 horas de evolución, sin náuseas ni vómitos. Al examen: temperatura de 38,3 °C, abdomen distendido con onda líquida e hipersensibilidad difusa a la palpación. La paracentesis muestra líquido transparente con 816 leucocitos/mm³ (85 % PMN y 15 % mononucleares); Gram: no se observan gérmenes. ¿Cuál es el diagnóstico más probable?",
+    "opciones": [
+      "A. Enfermedad ulcerosa péptica.",
+      "B. Peritonitis primaria.",
+      "C. Pancreatitis.",
+      "D. Colecistitis.",
+      "E. Absceso hepático."
+    ],
+    "respuestaCorrecta": 1,
+    "fundamentoDetallado": {
+      "correcta": "En un cirrótico con ascitis, fiebre y dolor abdominal, un recuento de neutrófilos en el líquido ascítico mayor de 250/mm³ (aquí unos 690/mm³) sin foco quirúrgico confirma la peritonitis bacteriana espontánea (primaria), aunque el Gram sea negativo. Se trata con cefalosporina de tercera generación y albúmina.",
+      "descarte": "A: la perforación de una úlcera produciría una peritonitis secundaria con abdomen agudo y neumoperitoneo. C y D: no explican la ascitis infectada. E: el absceso hepático produce dolor en el hipocondrio derecho y una lesión ocupante en la imagen."
+    },
+    "examen": "Examen de Medicina II",
+    "fuente": "Documento «Examen de Medicina II» 2012 (con claves)",
+    "numero": 2,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2012_EX_03",
+    "categoriaId": "med2_unt",
+    "anio": "2012",
+    "especialidad": "Cardiología",
+    "tema": "Pericarditis en hemodiálisis",
+    "dificultad": "Intermedio",
+    "pregunta": "Paciente con insuficiencia renal crónica terminal secundaria a hipotensión prolongada y grave, en hemodiálisis regular desde hace 2 años, que en la última semana presenta hipotensión al inicio de las sesiones. Acude por dolor retroesternal irradiado al músculo trapecio, que disminuye al ponerse de pie y se exacerba con la respiración profunda. ¿Cuál de los siguientes trastornos es la causa más probable del dolor retroesternal?",
+    "opciones": [
+      "A. Pericarditis.",
+      "B. Arteriopatía coronaria.",
+      "C. Espasmo esofágico difuso.",
+      "D. Embolia pulmonar.",
+      "E. Costocondritis."
+    ],
+    "respuestaCorrecta": 0,
+    "fundamentoDetallado": {
+      "correcta": "El dolor retroesternal pleurítico que se irradia al borde del trapecio (por la inervación del nervio frénico) y mejora al incorporarse es característico de la pericarditis. En hemodiálisis, la pericarditis asociada a la diálisis puede producir derrame, y la hipotensión durante las sesiones sugiere un derrame pericárdico significativo.",
+      "descarte": "B: el dolor coronario es opresivo y no varía con la respiración ni con la postura. C: el espasmo esofágico se relaciona con la deglución. D: la embolia pulmonar produce dolor pleurítico, pero no la irradiación al trapecio ni la mejoría postural. E: la costocondritis produce dolor reproducible a la palpación."
+    },
+    "examen": "Examen de Medicina II",
+    "fuente": "Documento «Examen de Medicina II» 2012 (con claves)",
+    "numero": 3,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2012_EX_04",
+    "categoriaId": "med2_unt",
+    "anio": "2012",
+    "especialidad": "Endocrinología",
+    "tema": "Hiperparatiroidismo primario: PTH intacta",
+    "dificultad": "Fácil",
+    "pregunta": "Mujer de 56 años con calcio sérico elevado (12,2 mg/dL), sin antecedentes de enfermedad ni de tratamientos relacionados con la hipercalcemia. ¿Cuál de los siguientes exámenes sería más útil para diagnosticar un hiperparatiroidismo primario?",
+    "opciones": [
+      "A. Calcio sérico ionizado.",
+      "B. Fosfato sérico.",
+      "C. Hormona paratiroidea intacta en suero (PTH).",
+      "D. TAC de cuello.",
+      "E. Excreción urinaria de calcio en 24 horas."
+    ],
+    "respuestaCorrecta": 2,
+    "fundamentoDetallado": {
+      "correcta": "El diagnóstico del hiperparatiroidismo primario es bioquímico: hipercalcemia con PTH intacta elevada o inapropiadamente normal. Una PTH suprimida orienta a hipercalcemia no mediada por PTH (neoplasia, vitamina D, granulomatosis).",
+      "descarte": "A: el calcio ionizado confirma la hipercalcemia, pero no su causa. B: el fosfato bajo apoya el diagnóstico, pero es inespecífico. D: las pruebas de imagen (ecografía, gammagrafía con sestamibi) localizan el adenoma una vez hecho el diagnóstico, para planificar la cirugía. E: la calciuria de 24 horas sirve para descartar la hipercalcemia hipocalciúrica familiar."
+    },
+    "examen": "Examen de Medicina II",
+    "fuente": "Documento «Examen de Medicina II» 2012 (con claves)",
+    "numero": 4,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2012_EX_05",
+    "categoriaId": "med2_unt",
+    "anio": "2012",
+    "especialidad": "Nefrología",
+    "tema": "Uropatía obstructiva: anuria intermitente",
+    "dificultad": "Intermedio",
+    "pregunta": "Varón de 78 años hospitalizado por anomalías en la micción: algunos días tiene diuresis adecuada y otros días no orina. Al examen: PA 180/90 mmHg, sin otras alteraciones. Urea 120 mg/dL, creatinina sérica 4,2 mg/dL. El examen de orina muestra densidad de 1010, proteínas, glucosa, cuerpos cetónicos y hematíes negativos, y escasos leucocitos. ¿Cuál es la causa más probable de la insuficiencia renal?",
+    "opciones": [
+      "A. Uropatía obstructiva.",
+      "B. Glomerulonefritis aguda.",
+      "C. Nefritis intersticial aguda.",
+      "D. Necrosis tubular aguda.",
+      "E. Insuficiencia renal crónica de naturaleza inespecífica."
+    ],
+    "respuestaCorrecta": 0,
+    "fundamentoDetallado": {
+      "correcta": "La alternancia de anuria y diuresis normal o abundante es característica de la obstrucción urinaria intermitente; en un varón de 78 años, la causa más probable es la hiperplasia prostática. El sedimento suele ser anodino. Se confirma con ecografía (hidronefrosis, residuo posmiccional) y es potencialmente reversible.",
+      "descarte": "B: la glomerulonefritis cursa con hematuria y proteinuria. C: la nefritis intersticial produce leucocituria, a menudo con eosinofiluria, y se asocia a fármacos. D: la necrosis tubular tiene un desencadenante (isquemia, tóxicos) y cilindros granulosos. E: no explica la diuresis intermitente."
+    },
+    "examen": "Examen de Medicina II",
+    "fuente": "Documento «Examen de Medicina II» 2012 (con claves)",
+    "numero": 5,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2013_G2_01",
+    "categoriaId": "med2_unt",
+    "anio": "2013",
+    "especialidad": "Hematología",
+    "tema": "TVP proximal con embolia pulmonar tras ACV reciente",
+    "dificultad": "Intermedio",
+    "pregunta": "Hombre de 65 años con dolor progresivo de 2 días, edema y color violáceo en la pantorrilla izquierda, y disnea. Recientemente tuvo un accidente cerebrovascular del hemisferio derecho y fue dado de alta hace 1 semana. Al examen: hemiparesia izquierda y disnea; edema ++/++++ de pie, tobillo y pantorrilla, con aumento de calor. La ecografía muestra trombo en las venas ilíaca común, femoral común, femoral superficial y poplítea izquierdas, y la TAC muestra embolia en el lóbulo superior del pulmón izquierdo. ¿Qué es lo más adecuado para el manejo del paciente?",
+    "opciones": [
+      "A. Heparina de bajo peso molecular a dosis bajas, en forma ambulatoria.",
+      "B. Hospitalización para terapia con heparina.",
+      "C. Anticoagulación con warfarina por 3 meses.",
+      "D. Soporte elástico.",
+      "E. Filtro en la vena cava inferior."
+    ],
+    "respuestaCorrecta": 1,
+    "fundamentoDetallado": {
+      "correcta": "Es una trombosis venosa profunda extensa (ilíaca) con embolia pulmonar sintomática en un paciente con un ACV reciente. Requiere anticoagulación a dosis plenas, iniciada en el hospital: la heparina permite vigilar el riesgo de transformación hemorrágica del infarto cerebral (la heparina no fraccionada se revierte rápidamente) y la evolución de la embolia.",
+      "descarte": "A: las dosis bajas son profilácticas, no terapéuticas, y el paciente no es candidato a manejo ambulatorio. C: la warfarina no se inicia sola: necesita un puente con heparina hasta alcanzar el INR. D: las medias elásticas no tratan la trombosis. E: el filtro de vena cava se reserva para cuando la anticoagulación está contraindicada o fracasa; un ACV isquémico de una semana no es una contraindicación absoluta."
+    },
+    "examen": "Examen de Medicina II – Grupo II",
+    "fuente": "Compilado de aplazados Medicina II (UNT), examen del 19/11/2013",
+    "numero": 1,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2013_G2_17",
+    "categoriaId": "med2_unt",
+    "anio": "2013",
+    "especialidad": "Infectología",
+    "tema": "Neumonía por Pneumocystis en VIH: esputo inducido",
+    "dificultad": "Fácil",
+    "pregunta": "Hombre de 42 años con fiebre, disnea, tos no productiva y sudoración nocturna de 10 días. Temperatura 38,3 °C; examen pulmonar y cardiaco normal, sin lesiones en la piel y sin antecedentes relevantes. La radiografía de tórax muestra infiltrado intersticial bilateral. Hemoglobina 12 g/dL, leucocitos 8400/µL, plaquetas 150 000/µL, creatinina 1,0 mg/dL, PaO2 60 mmHg. ELISA y Western blot para VIH positivos; CD4 105/µL. ¿Cuál es el próximo examen para llegar al diagnóstico?",
+    "opciones": [
+      "A. Hemocultivo.",
+      "B. Esputo inducido para Pneumocystis jirovecii.",
+      "C. PPD.",
+      "D. Tomografía pulmonar.",
+      "E. Carga viral del VIH (ARN)."
+    ],
+    "respuestaCorrecta": 1,
+    "fundamentoDetallado": {
+      "correcta": "Un paciente con VIH y CD4 menores de 200 con tos seca, disnea, hipoxemia e infiltrado intersticial bilateral tiene probablemente una neumonía por Pneumocystis jirovecii. El primer estudio diagnóstico es la tinción del esputo inducido; si es negativa, se realiza lavado broncoalveolar.",
+      "descarte": "A: los hemocultivos no diagnostican Pneumocystis. C: el PPD no diagnostica enfermedad activa y suele ser negativo con CD4 bajos. D: la tomografía muestra vidrio esmerilado, pero no confirma la etiología. E: la carga viral es útil para el seguimiento del VIH, no para el diagnóstico de la neumonía."
+    },
+    "examen": "Examen de Medicina II – Grupo II",
+    "fuente": "Compilado de aplazados Medicina II (UNT), examen del 19/11/2013",
+    "numero": 17,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2013_G2_18",
+    "categoriaId": "med2_unt",
+    "anio": "2013",
+    "especialidad": "Reumatología",
+    "tema": "Enfermedad de Behçet",
+    "dificultad": "Fácil",
+    "pregunta": "Hombre de 52 años que consulta por artritis. Tiene historia de úlceras orales y genitales recurrentes en los últimos años, y ha presentado eritema nodoso e iritis. El líquido sinovial de la rodilla muestra 5 × 10⁹ leucocitos/L, con cultivo y cristales negativos. ¿Cuál es el diagnóstico más probable?",
+    "opciones": [
+      "A. Artritis reumatoide.",
+      "B. Sarcoidosis.",
+      "C. Síndrome de Behçet.",
+      "D. Lupus.",
+      "E. Espondiloartropatía."
+    ],
+    "respuestaCorrecta": 2,
+    "fundamentoDetallado": {
+      "correcta": "Las úlceras orales y genitales recurrentes, junto con lesiones cutáneas (eritema nodoso), uveítis y artritis inflamatoria no erosiva, son características de la enfermedad de Behçet, una vasculitis de vasos de cualquier calibre.",
+      "descarte": "A: la artritis reumatoide no produce úlceras genitales ni uveítis. B: la sarcoidosis puede dar eritema nodoso, artritis y uveítis, pero no úlceras orales y genitales. D: el lupus produce úlceras orales, pero no genitales recurrentes ni iritis. E: las espondiloartropatías cursan con lumbalgia inflamatoria y entesitis."
+    },
+    "examen": "Examen de Medicina II – Grupo II",
+    "fuente": "Compilado de aplazados Medicina II (UNT), examen del 19/11/2013",
+    "numero": 18,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2017_G1_13",
+    "categoriaId": "med2_unt",
+    "anio": "2017",
+    "especialidad": "Semiología",
+    "tema": "Síndrome constitucional",
+    "dificultad": "Fácil",
+    "pregunta": "Paciente que presenta astenia, anorexia y adelgazamiento involuntario. ¿Cuál es el diagnóstico?",
+    "opciones": [
+      "A. Caquexia.",
+      "B. Síndrome constitucional.",
+      "C. Sarcopenia.",
+      "D. Síndrome de Evans."
+    ],
+    "respuestaCorrecta": 1,
+    "fundamentoDetallado": {
+      "correcta": "La tríada de astenia, anorexia y pérdida de peso involuntaria (generalmente > 5 % en 6–12 meses) define el síndrome constitucional, que obliga a buscar una causa orgánica (neoplasia, enfermedad digestiva, endocrina, infecciosa) o psiquiátrica.",
+      "descarte": "A: la caquexia es una pérdida grave de masa muscular y grasa asociada a una enfermedad crónica, un estadio más avanzado. C: la sarcopenia es la pérdida de masa y fuerza muscular asociada a la edad. D: el síndrome de Evans es la asociación de anemia hemolítica autoinmune y trombocitopenia inmune."
+    },
+    "examen": "Examen de Medicina II – Grupo I",
+    "fuente": "Compilado de aplazados Medicina II (UNT)",
+    "numero": 13,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2021_P56A_32",
+    "categoriaId": "med2_unt",
+    "anio": "2021",
+    "especialidad": "Cirugía",
+    "tema": "Apendicitis aguda: cirugía",
+    "dificultad": "Fácil",
+    "pregunta": "Mujer de 33 años con dolor abdominal de 5 horas de evolución, que comenzó en el epigastrio y luego se localizó en la fosa ilíaca derecha, de tipo sordo e intenso. Al examen: paciente adolorida, FC 110/min, PA 140/88 mmHg, T 37,3 °C axilar. La palpación abdominal muestra resistencia muscular en la fosa ilíaca derecha y signo de Blumberg positivo. La conducta más adecuada es:",
+    "opciones": [
+      "A. Solicitar TAC de abdomen y pelvis urgente.",
+      "B. Solicitar ecografía abdominal y decidir el manejo según los hallazgos.",
+      "C. Resolver quirúrgicamente a la brevedad.",
+      "D. Solicitar hemograma, VSG, PCR y hemocultivos e iniciar analgésicos y antibióticos de amplio espectro endovenosos.",
+      "E. Enviar a domicilio con analgesia y antibióticos orales."
+    ],
+    "respuestaCorrecta": 2,
+    "fundamentoDetallado": {
+      "correcta": "La migración del dolor del epigastrio a la fosa ilíaca derecha con defensa muscular y signo de Blumberg (irritación peritoneal) es una apendicitis aguda clínicamente clara: el tratamiento es la apendicectomía precoz, sin necesidad de imagen.",
+      "descarte": "A y B: los estudios de imagen se reservan para los casos dudosos (en la mujer joven puede valorarse la ecografía si hay duda ginecológica), pero no deben retrasar la cirugía con un cuadro típico. D: los antibióticos preoperatorios están indicados, pero no sustituyen la cirugía. E: el manejo ambulatorio es inadecuado."
+    },
+    "examen": "Examen de Medicina II – Promoción 56, Grupo A",
+    "fuente": "Capturas del aula virtual UNT (Promoción 56, Grupo A), con la respuesta correcta de la plataforma",
+    "numero": 32,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2009_OCT_04",
+    "categoriaId": "med2_unt",
+    "anio": "2009",
+    "especialidad": "Neumología",
+    "tema": "Sospecha de tromboembolismo pulmonar: conducta inicial",
+    "dificultad": "Intermedio",
+    "pregunta": "Ante la sospecha clínica de embolismo pulmonar en un paciente sin enfermedades previas y con moderada afección hemodinámica, la conducta recomendada respecto al tratamiento es:",
+    "opciones": [
+      "A. Iniciar el tratamiento una vez obtenido el diagnóstico de certeza.",
+      "B. Iniciar el tratamiento solo al demostrar una alta probabilidad de tromboembolismo pulmonar por gammagrafía.",
+      "C. Iniciar de inmediato la anticoagulación con heparina.",
+      "D. Realizar alguna medida de interrupción de la vena cava hasta que se confirme el diagnóstico.",
+      "E. Iniciar tratamiento fibrinolítico, pues su éxito depende de su precocidad."
+    ],
+    "respuestaCorrecta": 2,
+    "fundamentoDetallado": {
+      "correcta": "Ante una sospecha clínica intermedia o alta de TEP, sin contraindicación de sangrado, se inicia de inmediato la anticoagulación con heparina mientras se completa la confirmación diagnóstica, porque el retraso aumenta la mortalidad.",
+      "descarte": "A y B: esperar la confirmación retrasa un tratamiento que reduce la mortalidad. D: el filtro de vena cava solo se indica si hay contraindicación de anticoagulación. E: la fibrinólisis se reserva para el TEP con inestabilidad hemodinámica (shock o hipotensión mantenida)."
+    },
+    "examen": "Preguntas de Medicina II – Octubre",
+    "fuente": "Compilado de aplazados Medicina II (UNT), «Preguntas Medicina II – Octubre 2009», págs. 267–269",
+    "numero": 4,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2014_NOV_09",
+    "categoriaId": "med2_unt",
+    "anio": "2014",
+    "especialidad": "Neurología",
+    "tema": "Hemorragia subaracnoidea",
+    "dificultad": "Fácil",
+    "pregunta": "Un paciente joven es traído de urgencia con pérdida del conocimiento. Sus familiares refieren que comenzó súbitamente con vómitos y cefalea, y luego perdió el conocimiento. Al examen presenta signos meníngeos. ¿Cuál es el diagnóstico presuntivo?",
+    "opciones": [
+      "A. Meningitis.",
+      "B. Hematoma intracerebral.",
+      "C. Hemorragia subaracnoidea.",
+      "D. Tumor cerebral."
+    ],
+    "respuestaCorrecta": 2,
+    "fundamentoDetallado": {
+      "correcta": "Una cefalea súbita e intensa («la peor de su vida») con vómitos, pérdida de conciencia y signos meníngeos sin fiebre en un paciente joven es típica de la hemorragia subaracnoidea, habitualmente por rotura de un aneurisma. Se confirma con tomografía sin contraste y, si es normal, punción lumbar.",
+      "descarte": "A: la meningitis tiene un inicio menos brusco y cursa con fiebre. B: el hematoma intracerebral produce focalidad neurológica y es más propio de hipertensos de mayor edad. D: el tumor cerebral tiene una evolución progresiva."
+    },
+    "examen": "Examen de Medicina II – Noviembre",
+    "fuente": "Compilado de aplazados Medicina II (UNT), examen del 18/11/2014",
+    "numero": 9,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2014_NOV_03",
+    "categoriaId": "med2_unt",
+    "anio": "2014",
+    "especialidad": "Gastroenterología",
+    "tema": "Misoprostol: efecto abortivo",
+    "dificultad": "Fácil",
+    "pregunta": "¿Cuál de los siguientes fármacos utilizados en el tratamiento de la úlcera péptica debe administrarse con precaución en mujeres fértiles por su potencial abortivo?",
+    "opciones": [
+      "A. Ranitidina.",
+      "B. Hidróxido de aluminio.",
+      "C. Omeprazol.",
+      "D. Misoprostol.",
+      "E. Trisilicato de magnesio."
+    ],
+    "respuestaCorrecta": 3,
+    "fundamentoDetallado": {
+      "correcta": "El misoprostol es un análogo de la prostaglandina E1 que protege la mucosa gástrica, pero estimula las contracciones uterinas, por lo que está contraindicado en el embarazo y debe usarse con anticoncepción eficaz en mujeres en edad fértil.",
+      "descarte": "A, B, C y E: los antagonistas H2, los antiácidos y los inhibidores de la bomba de protones no tienen efecto abortivo."
+    },
+    "examen": "Examen de Medicina II – Noviembre",
+    "fuente": "Compilado de aplazados Medicina II (UNT), examen del 18/11/2014",
+    "numero": 3,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2013_G2_05",
+    "categoriaId": "med2_unt",
+    "anio": "2013",
+    "especialidad": "Cardiología",
+    "tema": "Contraindicación de los IECA: estenosis renal en riñón único",
+    "dificultad": "Fácil",
+    "pregunta": "¿En cuál de los siguientes supuestos está contraindicada la utilización de inhibidores de la ECA?",
+    "opciones": [
+      "A. En la hipertensión del anciano.",
+      "B. En la hipertensión renovascular de un paciente con riñón único.",
+      "C. En la hipertensión arterial esencial.",
+      "D. Asociados a diuréticos.",
+      "E. Asociados a calcioantagonistas."
+    ],
+    "respuestaCorrecta": 1,
+    "fundamentoDetallado": {
+      "correcta": "En la estenosis de la arteria renal bilateral o de un riñón único, la filtración glomerular depende de la vasoconstricción de la arteriola eferente mediada por la angiotensina II. Los IECA (y los ARA II) la suprimen y pueden precipitar una insuficiencia renal aguda.",
+      "descarte": "A y C: los IECA son de primera línea en la hipertensión esencial a cualquier edad. D y E: las asociaciones con diuréticos o calcioantagonistas son combinaciones recomendadas."
+    },
+    "examen": "Examen de Medicina II – Grupo II",
+    "fuente": "Compilado de aplazados Medicina II (UNT), examen del 19/11/2013",
+    "numero": 5,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2013_G2_02",
+    "categoriaId": "med2_unt",
+    "anio": "2013",
+    "especialidad": "Endocrinología",
+    "tema": "Acromegalia: tamizaje con IGF-1",
+    "dificultad": "Intermedio",
+    "pregunta": "Hombre de 52 años con sed y poliuria desde hace 6 meses. Se diagnostica diabetes con glucosa de 240 mg/dL y hemoglobina A1c de 8,4 %. Se nota que tiene manos grandes, mandíbula prominente y rasgos faciales acromegálicos. No ha cambiado de talla de zapatos, pero la esposa refiere que ronca ruidosamente y suda mucho. Al examen: manos grandes, mandíbula prominente y lengua grande, sin separación entre los dientes; tiroides aumentada de tamaño, no nodular. Laboratorio: hormona del crecimiento 5 ng/mL, TSH 1,2 mUI/L, glucosa 250 mg/dL y hemoglobina A1c 8,0 %. ¿Cuál debería ser la próxima medida?",
+    "opciones": [
+      "A. Test de tolerancia a la glucosa para evaluar la hormona de crecimiento.",
+      "B. RMN de hipófisis.",
+      "C. Medir niveles séricos de IGF-1.",
+      "D. Medir T4 libre.",
+      "E. Radiografía lateral de cráneo."
+    ],
+    "respuestaCorrecta": 2,
+    "fundamentoDetallado": {
+      "correcta": "La prueba inicial ante sospecha de acromegalia es el IGF-1 sérico, que refleja la secreción integrada de hormona de crecimiento. La GH aleatoria es poco útil por su secreción pulsátil. Si el IGF-1 está elevado, se confirma con la falta de supresión de GH tras una carga oral de glucosa y luego se realiza la RM de hipófisis.",
+      "descarte": "A: la supresión de GH con glucosa es la prueba confirmatoria, no la primera. B: la imagen se solicita después de la confirmación bioquímica. D: el bocio difuso es frecuente en la acromegalia, pero la T4 no es el siguiente paso. E: la radiografía de cráneo está obsoleta para este fin."
+    },
+    "examen": "Examen de Medicina II – Grupo II",
+    "fuente": "Compilado de aplazados Medicina II (UNT), examen del 19/11/2013",
+    "numero": 2,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2013_G2_28",
+    "categoriaId": "med2_unt",
+    "anio": "2013",
+    "especialidad": "Nefrología",
+    "tema": "Regulación de la sed: osmolalidad",
+    "dificultad": "Fácil",
+    "pregunta": "El principal estímulo para la ingestión de agua es la sed, sensación que surge cuando:",
+    "opciones": [
+      "A. Disminuye la osmolalidad eficaz.",
+      "B. Aumenta la osmolalidad eficaz.",
+      "C. Aumenta la tensión arterial.",
+      "D. Aumenta el líquido extracelular.",
+      "E. Disminuye la resistencia vascular periférica."
+    ],
+    "respuestaCorrecta": 1,
+    "fundamentoDetallado": {
+      "correcta": "Los osmorreceptores hipotalámicos detectan aumentos de la osmolalidad plasmática eficaz (de apenas 1–2 %) y estimulan la sed y la liberación de ADH. La hipovolemia importante también estimula la sed, pero con menor sensibilidad.",
+      "descarte": "A: la disminución de la osmolalidad suprime la sed. C y D: el aumento de la presión o del volumen extracelular la inhibe. E: no es el estímulo fisiológico principal."
+    },
+    "examen": "Examen de Medicina II – Grupo II",
+    "fuente": "Compilado de aplazados Medicina II (UNT), examen del 19/11/2013",
+    "numero": 28,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2013_G2_04",
+    "categoriaId": "med2_unt",
+    "anio": "2013",
+    "especialidad": "Hematología",
+    "tema": "Amiloidosis AL",
+    "dificultad": "Intermedio",
+    "pregunta": "Hombre de 71 años con fatiga, pérdida de peso y mareos al sentarse. Tiene síntomas de neuropatía sensitivo-motora periférica, edema ++ en miembros inferiores, creatinina de 3 mg/dL y proteinuria. ¿Cuál es el próximo paso en la evaluación de este paciente?",
+    "opciones": [
+      "A. TAC de abdomen.",
+      "B. Aspirado de médula ósea.",
+      "C. Aspirado de grasa abdominal con tinción de rojo Congo.",
+      "D. Biopsia de nervio periférico.",
+      "E. Radiografía de intestino delgado."
+    ],
+    "respuestaCorrecta": 2,
+    "fundamentoDetallado": {
+      "correcta": "Neuropatía periférica, hipotensión ortostática (disautonomía), proteinuria con insuficiencia renal y edema sugieren amiloidosis sistémica AL. El primer estudio, por ser sencillo y poco invasivo, es el aspirado de grasa abdominal con rojo Congo (birrefringencia verde manzana).",
+      "descarte": "A y E: las imágenes no demuestran amiloide. B: la médula ósea documenta la clona de células plasmáticas, pero no es el primer paso para demostrar el depósito. D: la biopsia de nervio es más invasiva y se reserva si la grasa es negativa."
+    },
+    "examen": "Examen de Medicina II – Grupo II",
+    "fuente": "Compilado de aplazados Medicina II (UNT), examen del 19/11/2013",
+    "numero": 4,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2014_NOV_01",
+    "categoriaId": "med2_unt",
+    "anio": "2014",
+    "especialidad": "Infectología",
+    "tema": "Pseudomonas aeruginosa: sinergia bactericida",
+    "dificultad": "Fácil",
+    "pregunta": "En un enfermo con sepsis y aislamiento microbiológico de Pseudomonas aeruginosa, ¿qué grupo de antimicrobianos elegiría para conseguir un efecto bactericida rápido?",
+    "opciones": [
+      "A. Tetraciclinas y fluoroquinolonas.",
+      "B. Betalactámicos y aminoglucósidos.",
+      "C. Rifampicina y cefsulodina.",
+      "D. Cotrimoxazol y betalactámico.",
+      "E. Nitrofurantoína y aminoglucósido."
+    ],
+    "respuestaCorrecta": 1,
+    "fundamentoDetallado": {
+      "correcta": "La combinación de un betalactámico antipseudomónico (piperacilina-tazobactam, ceftazidima, cefepima o un carbapenémico) con un aminoglucósido es sinérgica y rápidamente bactericida; se usa en la sepsis grave por Pseudomonas, al menos hasta conocer la sensibilidad.",
+      "descarte": "A: las tetraciclinas son bacteriostáticas y no cubren Pseudomonas. C: la rifampicina no es activa frente a Pseudomonas. D: Pseudomonas es intrínsecamente resistente al cotrimoxazol. E: la nitrofurantoína solo alcanza niveles útiles en la orina."
+    },
+    "examen": "Examen de Medicina II – Noviembre",
+    "fuente": "Compilado de aplazados Medicina II (UNT), examen del 18/11/2014",
+    "numero": 1,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2013_G2_19",
+    "categoriaId": "med2_unt",
+    "anio": "2013",
+    "especialidad": "Reumatología",
+    "tema": "Fenómeno de Raynaud secundario: esclerodactilia",
+    "dificultad": "Intermedio",
+    "pregunta": "En un paciente con fenómeno de Raynaud, ¿cuál de los siguientes hallazgos es de más ayuda para establecer el diagnóstico de una enfermedad subyacente?",
+    "opciones": [
+      "A. ANA positivo.",
+      "B. Engrosamiento e induración de la piel de los dedos y de las articulaciones metacarpofalángicas.",
+      "C. Enfermedad por reflujo gastroesofágico.",
+      "D. Madre con lupus.",
+      "E. VSG elevada."
+    ],
+    "respuestaCorrecta": 1,
+    "fundamentoDetallado": {
+      "correcta": "El engrosamiento e induración de la piel de los dedos que se extiende proximal a las metacarpofalángicas es el criterio más específico de esclerosis sistémica, la conectivopatía que con más frecuencia se asocia a fenómeno de Raynaud secundario.",
+      "descarte": "A: los ANA son poco específicos y pueden ser positivos en el Raynaud primario. C: el reflujo es frecuente en la población general. D: el antecedente familiar no establece el diagnóstico. E: la VSG es un marcador inespecífico."
+    },
+    "examen": "Examen de Medicina II – Grupo II",
+    "fuente": "Compilado de aplazados Medicina II (UNT), examen del 19/11/2013",
+    "numero": 19,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2021_AV_19",
+    "categoriaId": "med2_unt",
+    "anio": "2021",
+    "especialidad": "Semiología",
+    "tema": "Historia clínica orientada al problema (Weed)",
+    "dificultad": "Fácil",
+    "pregunta": "Los componentes de la historia clínica orientada al problema de Weed son los siguientes (marque la respuesta correcta):",
+    "opciones": [
+      "A. Anamnesis – examen físico – lista de datos básicos – lista de problemas – hipótesis diagnóstica – planes iniciales – diagnóstico final.",
+      "B. Base de datos – lista de problemas – hipótesis diagnósticas – planes – evolución.",
+      "C. Anamnesis – examen físico – lista de problemas – hipótesis diagnóstica – planes iniciales – diagnóstico final.",
+      "D. Base de datos – lista de problemas – planes – evolución.",
+      "E. Lista de datos básicos – lista de problemas – planes iniciales – evolución."
+    ],
+    "respuestaCorrecta": 3,
+    "fundamentoDetallado": {
+      "correcta": "La historia clínica orientada al problema, propuesta por Lawrence Weed (1968), tiene cuatro componentes: la base de datos (anamnesis, examen físico y exámenes iniciales), la lista de problemas, los planes iniciales (diagnósticos, terapéuticos y educativos) para cada problema y las notas de evolución, habitualmente en formato SOAP.",
+      "descarte": "A y C: mezclan los componentes con los de la historia clínica tradicional. B: la hipótesis diagnóstica no es un componente independiente; forma parte de los planes y de la evolución de cada problema. E: la base de datos no se limita a una lista de datos básicos."
+    },
+    "examen": "Examen de Medicina II – Aula virtual, grupo sin identificar",
+    "fuente": "Capturas de dos intentos del aula virtual UNT (grupo sin identificar); el primero muestra la respuesta correcta de la plataforma",
+    "numero": 19,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2010_URT_01",
+    "categoriaId": "med2_unt",
+    "anio": "2010",
+    "especialidad": "Neumología",
+    "tema": "Broncoespasmo inducido por ejercicio: salbutamol",
+    "dificultad": "Fácil",
+    "pregunta": "Una estudiante de enfermería de la UNT con antecedentes de sibilancias intermitentes durante el ejercicio acude a emergencia por disnea; la crisis se produjo durante sus ejercicios matutinos. Al examen presenta dificultad respiratoria y sibilantes difusos; saturación de oxígeno 95 %. El tratamiento eficaz consiste en:",
+    "opciones": [
+      "A. Aminofilina endovenosa.",
+      "B. Salmeterol inhalado.",
+      "C. Hidrocortisona endovenosa.",
+      "D. Salbutamol inhalado en aerosol.",
+      "E. Beclometasona inhalada."
+    ],
+    "respuestaCorrecta": 3,
+    "fundamentoDetallado": {
+      "correcta": "La crisis de broncoespasmo se trata con un beta-2 agonista de acción corta inhalado (salbutamol con aerocámara o nebulizado), de inicio de acción en minutos. También se usa antes del ejercicio para prevenir el broncoespasmo inducido por el esfuerzo.",
+      "descarte": "A: la aminofilina tiene un margen terapéutico estrecho y no se recomienda. B: el salmeterol tiene un inicio de acción lento. C: los corticoides sistémicos no actúan de inmediato; se reservan para crisis moderadas o graves. E: la beclometasona es un controlador sin efecto broncodilatador inmediato."
+    },
+    "examen": "Preguntas de Neumología del Dr. Concepción Urteaga",
+    "fuente": "Compilado de aplazados Medicina II (UNT), preguntas del Dr. Luis Concepción Urteaga, págs. 263–271",
+    "numero": 1,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2021_FINALB_34",
+    "categoriaId": "med2_unt",
+    "anio": "2021",
+    "especialidad": "Neurología",
+    "tema": "Coma en el paciente alcohólico",
+    "dificultad": "Fácil",
+    "pregunta": "Paciente de 56 años traído a emergencia tras una importante ingesta de alcohol, que llega en estado de coma. ¿Qué otra causa alternativa o complementaria debe descartarse en este caso?",
+    "opciones": [
+      "A. Todas las siguientes.",
+      "B. Coma hipoglucémico.",
+      "C. Encefalopatía hepática.",
+      "D. Ingesta simultánea de otros fármacos.",
+      "E. Traumatismos craneales."
+    ],
+    "respuestaCorrecta": 0,
+    "fundamentoDetallado": {
+      "correcta": "En el alcohólico en coma no debe atribuirse el cuadro solo a la intoxicación etílica: hay que descartar hipoglucemia (frecuente por depleción de glucógeno), encefalopatía hepática, coingesta de otras sustancias y traumatismo craneal (hematoma subdural), entre otras causas.",
+      "descarte": "B, C, D y E: cada una es una causa que debe descartarse; ninguna por separado es la respuesta completa."
+    },
+    "examen": "Examen Final – Grupo B",
+    "fuente": "Aula virtual UNT (28/05/2021)",
+    "numero": 34,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2014_NOV_04",
+    "categoriaId": "med2_unt",
+    "anio": "2014",
+    "especialidad": "Gastroenterología",
+    "tema": "Diarrea crónica con sangre y moco: colitis ulcerosa",
+    "dificultad": "Fácil",
+    "pregunta": "Una paciente de 32 años consulta por un cuadro de diarrea de 6 meses de evolución con mucorrea y hematoquecia. ¿Cuál sería su primer diagnóstico presuntivo?",
+    "opciones": [
+      "A. Colitis ulcerosa.",
+      "B. Amebiasis.",
+      "C. Colitis seudomembranosa.",
+      "D. Síndrome de intestino irritable."
+    ],
+    "respuestaCorrecta": 0,
+    "fundamentoDetallado": {
+      "correcta": "La diarrea crónica (más de 4 semanas) con moco y sangre en una adulta joven es la presentación típica de la colitis ulcerosa, que afecta de forma continua al recto y al colon.",
+      "descarte": "B: la amebiasis intestinal puede dar disentería, pero suele ser más aguda; debe descartarse con examen de heces antes de iniciar corticoides. C: la colitis seudomembranosa se asocia al uso de antibióticos y es aguda. D: el intestino irritable no produce sangrado."
+    },
+    "examen": "Examen de Medicina II – Noviembre",
+    "fuente": "Compilado de aplazados Medicina II (UNT), examen del 18/11/2014",
+    "numero": 4,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2013_G2_08",
+    "categoriaId": "med2_unt",
+    "anio": "2013",
+    "especialidad": "Cardiología",
+    "tema": "AINE e insuficiencia cardiaca descompensada",
+    "dificultad": "Intermedio",
+    "pregunta": "Mujer de 82 años que llega al consultorio por malestar general. Tiene hipertensión arterial e insuficiencia cardiaca con función ventricular izquierda conservada, en tratamiento crónico con enalapril 5 mg dos veces al día, metoprolol 50 mg dos veces al día e hidroclorotiazida 25 mg al día. Recientemente fue evaluada por rinorrea, tos productiva, palpitaciones, mialgias y artralgias, por lo que recibe naproxeno y amoxicilina. Al examen presenta ingurgitación yugular y PA 160/90 mmHg. La radiografía de tórax muestra congestión venosa pulmonar y derrame pleural bilateral, y la creatinina se elevó de 1,5 a 2,4 mg/dL. ¿Cuál de las siguientes medidas es la más adecuada?",
+    "opciones": [
+      "A. Sustituir el enalapril por candesartán 8 mg/día.",
+      "B. Discontinuar el enalapril.",
+      "C. Discontinuar el naproxeno.",
+      "D. Cambiar la amoxicilina por levofloxacino.",
+      "E. Infusión salina por 8 horas."
+    ],
+    "respuestaCorrecta": 2,
+    "fundamentoDetallado": {
+      "correcta": "Los AINE inhiben las prostaglandinas renales: producen retención de sodio y agua, elevan la presión arterial, antagonizan a los diuréticos y a los IECA y reducen el filtrado glomerular, sobre todo en ancianos tratados con IECA y diuréticos («triple whammy»). La descompensación de la insuficiencia cardiaca con deterioro renal se corrige suspendiendo el naproxeno.",
+      "descarte": "A y B: el IECA no es la causa principal y es parte del tratamiento de base. D: el antibiótico no explica el cuadro. E: la paciente está congestiva; la infusión salina empeoraría la insuficiencia cardiaca."
+    },
+    "examen": "Examen de Medicina II – Grupo II",
+    "fuente": "Compilado de aplazados Medicina II (UNT), examen del 19/11/2013",
+    "numero": 8,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2013_G2_09",
+    "categoriaId": "med2_unt",
+    "anio": "2013",
+    "especialidad": "Endocrinología",
+    "tema": "Nódulo tiroideo con TSH normal: PAAF",
+    "dificultad": "Fácil",
+    "pregunta": "Mujer de 48 años evaluada con Doppler carotídeo por un soplo carotídeo detectado en el examen físico; no se encontró nada relevante salvo un nódulo de 1,4 cm en el lóbulo tiroideo derecho. No refiere síntomas, disfagia, disfonía ni disnea, ni antecedentes personales o familiares de enfermedad tiroidea ni exposición a radiación. En el examen físico el nódulo no se palpa. TSH 1,2 mUI/L. ¿Qué es lo más indicado para esta paciente?",
+    "opciones": [
+      "A. Gammagrafía tiroidea.",
+      "B. Biopsia por aspiración con aguja fina del nódulo, guiada por ecografía.",
+      "C. Terapia con tiroxina para suprimir la TSH.",
+      "D. Extirpación quirúrgica del nódulo.",
+      "E. Control en 6 meses o un año."
+    ],
+    "respuestaCorrecta": 1,
+    "fundamentoDetallado": {
+      "correcta": "En un nódulo tiroideo con TSH normal, el estudio de elección es la punción-aspiración con aguja fina guiada por ecografía, indicada en general en los nódulos sólidos de 1 cm o más (según el patrón ecográfico de la ATA o TI-RADS), aunque sean incidentales y no palpables.",
+      "descarte": "A: la gammagrafía se solicita cuando la TSH está baja, para buscar un nódulo hiperfuncionante. C: la supresión con tiroxina no se recomienda. D: la cirugía depende del resultado citológico. E: un nódulo sólido de 1,4 cm debe estudiarse con citología."
+    },
+    "examen": "Examen de Medicina II – Grupo II",
+    "fuente": "Compilado de aplazados Medicina II (UNT), examen del 19/11/2013",
+    "numero": 9,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2013_G2_29",
+    "categoriaId": "med2_unt",
+    "anio": "2013",
+    "especialidad": "Nefrología",
+    "tema": "Solución salina hipotónica al 0,45 %",
+    "dificultad": "Fácil",
+    "pregunta": "La solución salina seminormal (NaCl) tiene una concentración de:",
+    "opciones": [
+      "A. 9 %.",
+      "B. 0,9 %.",
+      "C. 4,5 %.",
+      "D. 0,45 %.",
+      "E. 5 %."
+    ],
+    "respuestaCorrecta": 3,
+    "fundamentoDetallado": {
+      "correcta": "La solución salina «normal» es el NaCl al 0,9 % (154 mEq/L de sodio); la seminormal o hipotónica es la mitad, al 0,45 % (77 mEq/L), y se usa para aportar agua libre, por ejemplo en la hipernatremia o en la cetoacidosis con sodio alto.",
+      "descarte": "B: es la solución salina normal (isotónica). A y C: son soluciones hipertónicas. E: corresponde a la concentración de la dextrosa al 5 %, no del NaCl seminormal."
+    },
+    "examen": "Examen de Medicina II – Grupo II",
+    "fuente": "Compilado de aplazados Medicina II (UNT), examen del 19/11/2013",
+    "numero": 29,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2021_AV_03",
+    "categoriaId": "med2_unt",
+    "anio": "2021",
+    "especialidad": "Hematología",
+    "tema": "Anemia hemolítica autoinmune por anticuerpos fríos: causas secundarias",
+    "dificultad": "Intermedio",
+    "pregunta": "Paciente de 16 años que acude por acrocianosis e ictericia conjuntival de 3 días de evolución. Refiere haber sido tratada con antibióticos 3 semanas antes por una neumonía. Los estudios de laboratorio sugieren una anemia hemolítica autoinmune, posiblemente por autoanticuerpos fríos. ¿Cuál de las siguientes NO sería una causa secundaria de este síndrome?",
+    "opciones": [
+      "A. Mononucleosis infecciosa.",
+      "B. Sífilis.",
+      "C. Infección por Mycoplasma pneumoniae.",
+      "D. Macroglobulinemia de Waldenström.",
+      "E. Lupus eritematoso sistémico."
+    ],
+    "respuestaCorrecta": 4,
+    "fundamentoDetallado": {
+      "correcta": "La anemia hemolítica por anticuerpos fríos (crioaglutininas IgM, o la hemolisina bifásica IgG de Donath-Landsteiner) es secundaria sobre todo a infecciones —Mycoplasma pneumoniae, como en este caso tras una neumonía; virus de Epstein-Barr; sífilis— y a síndromes linfoproliferativos. El LES, en cambio, se asocia típicamente a anemia hemolítica por anticuerpos calientes (IgG).",
+      "descarte": "A: la mononucleosis produce crioaglutininas anti-i. B: la sífilis causa la hemoglobinuria paroxística a frigore (anticuerpo de Donath-Landsteiner), una forma de hemólisis por frío. C: es la causa clásica de crioaglutininas anti-I tras una neumonía atípica. D: la IgM monoclonal de la macroglobulinemia puede comportarse como crioaglutinina."
+    },
+    "examen": "Examen de Medicina II – Aula virtual, grupo sin identificar",
+    "fuente": "Capturas de dos intentos del aula virtual UNT (grupo sin identificar); el primero muestra la respuesta correcta de la plataforma",
+    "numero": 3,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2014_NOV_22",
+    "categoriaId": "med2_unt",
+    "anio": "2014",
+    "especialidad": "Infectología",
+    "tema": "Intoxicación alimentaria por enterotoxina estafilocócica",
+    "dificultad": "Fácil",
+    "pregunta": "Cuatro horas después de asistir a una comida, 20 personas inician súbitamente un cuadro de náuseas, vómitos y dolor abdominal. ¿Cuál de los siguientes agentes es el causante más probable?",
+    "opciones": [
+      "A. Clostridium botulinum.",
+      "B. Salmonella typhimurium.",
+      "C. Clostridium perfringens.",
+      "D. Estafilococo productor de enterotoxina.",
+      "E. Escherichia coli enterotoxigénica."
+    ],
+    "respuestaCorrecta": 3,
+    "fundamentoDetallado": {
+      "correcta": "Un brote de vómitos intensos que comienza 1 a 6 horas después de una comida es típico de la intoxicación por enterotoxina preformada de Staphylococcus aureus (o de Bacillus cereus, forma emética). El periodo de incubación tan corto indica toxina ya formada en el alimento.",
+      "descarte": "A: el botulismo produce parálisis descendente a las 12–72 horas. B y E: Salmonella y E. coli enterotoxigénica tienen incubación de 12 a 72 horas y predomina la diarrea. C: Clostridium perfringens produce diarrea y dolor abdominal a las 8–16 horas, sin vómitos importantes."
+    },
+    "examen": "Examen de Medicina II – Noviembre",
+    "fuente": "Compilado de aplazados Medicina II (UNT), examen del 18/11/2014",
+    "numero": 22,
+    "fundamentoGenerado": true
+  },
+  {
+    "id": "MED2_2013_G2_20",
+    "categoriaId": "med2_unt",
+    "anio": "2013",
+    "especialidad": "Reumatología",
+    "tema": "Polimialgia reumática: prednisona a dosis bajas",
+    "dificultad": "Fácil",
+    "pregunta": "Mujer de 65 años que se queja de dolor en caderas y hombros, con rigidez matutina de 2 horas. Niega cefalea, claudicación mandibular y disminución de la visión. Al examen hay dolor con los movimientos de la articulación glenohumeral. Laboratorio: anemia normocítica normocrómica con hemoglobina de 10,9 g/dL y VSG de 49 mm/hora. ¿Cuál es el paso adecuado para el cuidado de esta paciente?",
+    "opciones": [
+      "A. Prednisona 60 mg/día.",
+      "B. Prednisona 5 mg tres veces al día.",
+      "C. Biopsia de la arteria temporal.",
+      "D. Creatinquinasa.",
+      "E. Electromiografía."
+    ],
+    "respuestaCorrecta": 1,
+    "fundamentoDetallado": {
+      "correcta": "Dolor y rigidez matutina prolongada de las cinturas escapular y pelviana en una mayor de 50 años con VSG elevada es una polimialgia reumática. Se trata con prednisona a dosis bajas (12,5–25 mg/día; aquí 15 mg/día), con respuesta rápida y espectacular.",
+      "descarte": "A: las dosis altas (40–60 mg/día) son para la arteritis de células gigantes, y no hay síntomas que la sugieran. C: la biopsia temporal se indica solo si hay síntomas de arteritis. D y E: la CK y el electromiograma son normales en la polimialgia; serían útiles ante debilidad (miositis)."
+    },
+    "examen": "Examen de Medicina II – Grupo II",
+    "fuente": "Compilado de aplazados Medicina II (UNT), examen del 19/11/2013",
+    "numero": 20,
+    "fundamentoGenerado": true
+  }
+]
