@@ -110,47 +110,50 @@ Los aciertos por tema se calculan con un join contra el banco cargado. La ruta d
 
 ### Fase 0: Preparación
 
-- [ ] Crear el repo público `banqueunt-mcp`, separado de `examen-pwa`
-- [ ] TypeScript estricto, ESM, Node ≥ 22, `tsup` o `tsc` para compilar, ESLint y Prettier
-- [ ] `.gitignore`: `.env`, `*.db`, cualquier `data/` que no sea `muestra.json`
+- [x] Crear el repo público `banqueunt-mcp`, separado de `examen-pwa`
+- [x] TypeScript estricto, ESM, Node ≥ 22, `tsup` o `tsc` para compilar, ESLint y Prettier
+- [x] `.gitignore`: `.env`, `*.db`, cualquier `data/` que no sea `muestra.json`
 
 ### Fase 1: Datos
 
-- [ ] `esquema.ts` con zod a partir de los campos reales (sección 1). Test que valide **las 1,433 preguntas** de `med2_unt` en `examen-pwa/data` (se ejecuta en local y se salta si falta `BANQUEUNT_DATA`)
-- [ ] `normalizar.ts` para los dos formatos de `fundamentoDetallado` (antiguo y ampliado con `otraPosible`), con avisos de `claveOficial` y `fundamentoGenerado`. Tests de cada caso
-- [ ] Generar `muestra.json` con un script (`scripts/crear-muestra.ts`), unas 30 preguntas de `med2_unt`:
+- [x] `esquema.ts` con zod a partir de los campos reales (sección 1). Test que valide **las 1,433 preguntas** de `med2_unt` en `examen-pwa/data` (se ejecuta en local y se salta si falta `BANQUEUNT_DATA`)
+- [x] `normalizar.ts` para los dos formatos de `fundamentoDetallado` (antiguo y ampliado con `otraPosible`), con avisos de `claveOficial` y `fundamentoGenerado`. Tests de cada caso
+- [x] Generar `muestra.json` con un script (`scripts/crear-muestra.ts`), unas 30 preguntas de `med2_unt`:
   - **Solo** de exámenes antiguos (`examenes_<año>.json`)
   - Con clave oficial: sin `claveOficial: false`
   - **Nunca** de `prioritarias_*`, que es contenido de pago (y «Fijas Grupo C» es de un autor externo, con permiso solo para la app). También se excluyen las que tienen `prioritaria: true` o el mismo enunciado que una prioritaria
-- [ ] `MuestraLocal` y `CarpetaLocal`. `CarpetaLocal` lee `index.json → categorias[curso].archivos` y comprueba las huellas de `versiones`
-- [ ] Firma de deduplicación (portada de `questionSignature()` de `app.js`), para usarla en los conteos y en los simulacros
+- [x] `MuestraLocal` y `CarpetaLocal`. `CarpetaLocal` lee `index.json → categorias[curso].archivos` y comprueba las huellas de `versiones`
+- [x] Firma de deduplicación (portada de `questionSignature()` de `app.js`), para usarla en los conteos y en los simulacros
 
 ### Fase 2: Primera tool y conexión
 
-- [ ] `estadisticas_banco`, transporte stdio, prueba con MCP Inspector
-- [ ] **Hito:** `claude mcp add banqueunt -- node dist/index.js`, luego preguntar "¿cuántas preguntas hay por especialidad en med2?"
+- [x] `estadisticas_banco`, transporte stdio, prueba con MCP Inspector (`--cli`: tools, plantillas de recursos, prompts y una llamada)
+- [x] **Hito:** `claude mcp add banqueunt -- node dist/index.js`, luego preguntar "¿cuántas preguntas hay por especialidad en med2?"
 
 ### Fase 3: Tools principales y persistencia
 
-- [ ] `publico.ts` y `busqueda.ts` (comparación sin tildes) para `buscar_preguntas`
-- [ ] Repo SQLite, `generar_simulacro` y `corregir_simulacro`
-- [ ] `mi_progreso`
-- [ ] **Tests clave:** ninguna salida (salvo la corrección) contiene `respuestaCorrecta`, `fundamento*` ni la letra correcta. El test recorre la respuesta serializada de cada tool
+- [x] `publico.ts` y `busqueda.ts` (comparación sin tildes) para `buscar_preguntas`
+- [x] Repo SQLite, `generar_simulacro` y `corregir_simulacro`
+- [x] `mi_progreso`
+- [x] **Tests clave:** ninguna salida (salvo la corrección) contiene `respuestaCorrecta`, `fundamento*` ni la letra correcta. El test recorre la respuesta serializada de cada tool
+- [x] `explicar_pregunta` (solo preguntas ya corregidas). El `tema` tampoco sale antes de corregir: suele nombrar el diagnóstico o el fármaco correcto
 
 ### Fase 4: Resources, prompts y errores
 
-- [ ] Resources con completion, los 2 prompts
-- [ ] Errores claros con `isError: true`: curso inexistente o sin preguntas (`enam`), simulacro vencido o ya corregido, letra fuera de rango, curso sin acceso
+- [x] Resources con completion, los 2 prompts
+- [x] Errores claros con `isError: true`: curso inexistente o sin preguntas (`enam`), simulacro vencido o ya corregido, letra fuera de rango, curso sin acceso
+- [x] `mi_progreso` devuelve también los **temas fallados recientes** (desde la primera falla), que usa el prompt `repasar_temas_debiles`
 
 ### Fase 4.5: Protección del banco
 
-- [ ] Límites por usuario: `buscar_preguntas` ≤ 20 por llamada y un tope diario de preguntas servidas (ej. 300 al día). En remoto se guarda en Cloudflare D1; en local no aplica
-- [ ] Registrar cada llamada (usuario, tool, cantidad) para detectar una extracción masiva
+- [x] Límites por usuario: `buscar_preguntas` ≤ 20 por llamada y un tope diario de preguntas servidas (`BANQUEUNT_TOPE_DIARIO`, ej. 300). Cuentan `buscar_preguntas`, `generar_simulacro` y el recurso `banqueunt://pregunta/{id}`; el día se cierra a medianoche de Perú. En local va apagado por defecto; en remoto se guarda en Cloudflare D1 (Fase 6, misma interfaz `ProgresoRepo`)
+- [x] Registrar cada llamada (usuario, tool, cantidad, resultado `ok`/`error`/`limite`) en la tabla `llamadas`, y `npm run uso -- [días]` para detectar una extracción masiva
 
 ### Fase 5: Presentación
 
-- [ ] README en inglés: demo en GIF, instalación (Claude Desktop, Claude Code, Cursor y VS Code), tabla de tools y diagrama de arquitectura
-- [ ] GitHub Actions: lint, `tsc --noEmit` y tests en Node 22
+- [x] README en inglés: instalación (Claude Desktop, Claude Code, Cursor y VS Code), tabla de tools, configuración, diagrama de arquitectura (Mermaid) y decisiones de diseño. Licencia MIT
+- [ ] Demo en GIF para el README (por ahora hay una conversación de ejemplo en texto)
+- [x] GitHub Actions: lint, `tsc --noEmit`, Prettier, build y tests en Node 22 y 24
 - [ ] Portafolio y LinkedIn
 
 ### Fase 6: Remoto para suscriptores (antes "opcional")

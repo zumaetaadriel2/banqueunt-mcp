@@ -11,7 +11,7 @@
     "data/muestra.json"
   ],
   "engines": {
-    "node": ">=22"
+    "node": ">=22.13"
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
@@ -22,7 +22,8 @@
     "format": "prettier --write .",
     "test": "vitest run",
     "inspector": "npx @modelcontextprotocol/inspector node dist/index.js",
-    "muestra": "tsx scripts/crear-muestra.ts"
+    "muestra": "tsx scripts/crear-muestra.ts",
+    "uso": "tsx scripts/uso.ts"
   },
   "license": "MIT",
   "dependencies": {

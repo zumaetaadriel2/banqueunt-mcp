@@ -15,8 +15,14 @@ export interface FuenteBanco {
 }
 
 export class CursoNoDisponible extends Error {
-  constructor(public readonly curso: string) {
-    super(`El curso «${curso}» no está disponible en este servidor.`);
+  constructor(
+    public readonly curso: string,
+    disponibles?: string[],
+  ) {
+    const lista = disponibles ? ` Cursos disponibles: ${disponibles.join(', ') || 'ninguno'}.` : '';
+    super(
+      curso ? `El curso «${curso}» no está disponible en este servidor.${lista}` : `Indica el curso.${lista}`,
+    );
   }
 }
 
