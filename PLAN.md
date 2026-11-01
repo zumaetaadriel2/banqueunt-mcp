@@ -127,7 +127,7 @@ Los aciertos por tema se calculan con un join contra el banco cargado. La ruta d
 
 ### Fase 2: Primera tool y conexión
 
-- [ ] `estadisticas_banco`, transporte stdio, prueba con MCP Inspector
+- [x] `estadisticas_banco`, transporte stdio, prueba con MCP Inspector (`--cli`: tools, plantillas de recursos, prompts y una llamada)
 - [x] **Hito:** `claude mcp add banqueunt -- node dist/index.js`, luego preguntar "¿cuántas preguntas hay por especialidad en med2?"
 
 ### Fase 3: Tools principales y persistencia
@@ -151,8 +151,9 @@ Los aciertos por tema se calculan con un join contra el banco cargado. La ruta d
 
 ### Fase 5: Presentación
 
-- [ ] README en inglés: demo en GIF, instalación (Claude Desktop, Claude Code, Cursor y VS Code), tabla de tools y diagrama de arquitectura
-- [ ] GitHub Actions: lint, `tsc --noEmit` y tests en Node 22
+- [x] README en inglés: instalación (Claude Desktop, Claude Code, Cursor y VS Code), tabla de tools, configuración, diagrama de arquitectura (Mermaid) y decisiones de diseño. Licencia MIT
+- [ ] Demo en GIF para el README (por ahora hay una conversación de ejemplo en texto)
+- [x] GitHub Actions: lint, `tsc --noEmit`, Prettier, build y tests en Node 22 y 24
 - [ ] Portafolio y LinkedIn
 
 ### Fase 6: Remoto para suscriptores (antes "opcional")
