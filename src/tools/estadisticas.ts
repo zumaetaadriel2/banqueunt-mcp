@@ -66,7 +66,7 @@ export function registrarEstadisticas(server: McpServer, ctx: Contexto): void {
       annotations: { readOnlyHint: true, openWorldHint: false },
     },
     ({ curso, especialidad }) =>
-      ejecutar(async () => {
+      ejecutar(ctx, 'estadisticas_banco', async () => {
         const elegidos = curso ? [await ctx.banco.resolverCurso(curso)] : await ctx.banco.cursos();
         const cursos = await Promise.all(
           elegidos.map(async (c) => estadisticasCurso(c, await ctx.banco.publicadas(c), especialidad)),

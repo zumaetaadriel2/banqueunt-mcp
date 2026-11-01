@@ -47,6 +47,24 @@ export interface ItemRespondido {
   correcta: boolean;
 }
 
+/** Una llamada a una herramienta o recurso, para el tope diario y para detectar extracciones masivas */
+export interface Llamada {
+  usuario: string;
+  herramienta: string;
+  /** Preguntas que la llamada entregó (o pidió, si se rechazó por el tope) */
+  cantidad: number;
+  en: string;
+  resultado: 'ok' | 'error' | 'limite';
+}
+
+export interface UsoUsuario {
+  usuario: string;
+  llamadas: number;
+  /** Solo las llamadas con resultado 'ok' */
+  preguntas: number;
+  rechazadas: number;
+}
+
 export interface ProgresoRepo {
   crearSimulacro(s: Simulacro): Promise<void>;
   obtenerSimulacro(id: string, usuario: string): Promise<Simulacro | undefined>;
@@ -64,5 +82,10 @@ export interface ProgresoRepo {
   itemsRespondidos(usuario: string, curso?: string): Promise<ItemRespondido[]>;
   /** ¿El usuario ya corrigió alguna vez esta pregunta? (para explicar_pregunta) */
   preguntaCorregida(usuario: string, preguntaId: string): Promise<{ curso: string } | undefined>;
+  registrarLlamada(llamada: Llamada): Promise<void>;
+  /** Preguntas entregadas al usuario desde `desde` (ISO), sumando solo las llamadas 'ok' */
+  preguntasServidas(usuario: string, desde: string): Promise<number>;
+  /** Uso por usuario desde `desde`, de quien más preguntas recibió a quien menos */
+  usoPorUsuario(desde: string): Promise<UsoUsuario[]>;
   cerrar(): void;
 }

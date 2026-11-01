@@ -2,7 +2,7 @@ import { ResourceTemplate, type McpServer } from '@modelcontextprotocol/sdk/serv
 import type { ReadResourceResult } from '@modelcontextprotocol/sdk/types.js';
 import { estadisticasCurso } from './dominio/estadisticas.js';
 import { aPreguntaPublica } from './dominio/publico.js';
-import type { Contexto } from './tools/contexto.js';
+import { registrado, type Contexto } from './tools/contexto.js';
 
 function json(uri: URL, datos: unknown): ReadResourceResult {
   return {
@@ -82,11 +82,14 @@ export function registrarRecursos(server: McpServer, ctx: Contexto): void {
       description: 'Enunciado y alternativas de una pregunta por su id, sin respuesta ni explicación',
       mimeType: 'application/json',
     },
-    async (uri, variables) => {
-      const id = variable(variables.id);
-      const q = await ctx.banco.buscarEnCursos(id);
-      if (!q) throw new Error(`No existe la pregunta «${id}».`);
-      return json(uri, aPreguntaPublica(q));
-    },
+    // Entrega una pregunta, así que cuenta para el tope diario igual que buscar_preguntas
+    (uri, variables) =>
+      registrado(ctx, 'recurso:pregunta', async (servir) => {
+        const id = variable(variables.id);
+        const q = await ctx.banco.buscarEnCursos(id);
+        if (!q) throw new Error(`No existe la pregunta «${id}».`);
+        await servir(1);
+        return json(uri, aPreguntaPublica(q));
+      }),
   );
 }

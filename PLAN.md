@@ -146,8 +146,8 @@ Los aciertos por tema se calculan con un join contra el banco cargado. La ruta d
 
 ### Fase 4.5: Protección del banco
 
-- [ ] Límites por usuario: `buscar_preguntas` ≤ 20 por llamada y un tope diario de preguntas servidas (ej. 300 al día). En remoto se guarda en Cloudflare D1; en local no aplica
-- [ ] Registrar cada llamada (usuario, tool, cantidad) para detectar una extracción masiva
+- [x] Límites por usuario: `buscar_preguntas` ≤ 20 por llamada y un tope diario de preguntas servidas (`BANQUEUNT_TOPE_DIARIO`, ej. 300). Cuentan `buscar_preguntas`, `generar_simulacro` y el recurso `banqueunt://pregunta/{id}`; el día se cierra a medianoche de Perú. En local va apagado por defecto; en remoto se guarda en Cloudflare D1 (Fase 6, misma interfaz `ProgresoRepo`)
+- [x] Registrar cada llamada (usuario, tool, cantidad, resultado `ok`/`error`/`limite`) en la tabla `llamadas`, y `npm run uso -- [días]` para detectar una extracción masiva
 
 ### Fase 5: Presentación
 

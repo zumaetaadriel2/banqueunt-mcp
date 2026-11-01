@@ -29,6 +29,8 @@ export interface OpcionesServidor {
   rng?: () => number;
   nuevoId?: () => string;
   vigenciaSimulacroMs?: number;
+  /** Preguntas que un usuario puede recibir al día; sin él (o null), no hay tope */
+  topeDiario?: number | null;
 }
 
 export function crearServidor(
@@ -45,6 +47,7 @@ export function crearServidor(
     rng: opciones.rng ?? Math.random,
     nuevoId: opciones.nuevoId ?? (() => randomUUID().replace(/-/g, '').slice(0, 12)),
     vigenciaSimulacroMs: opciones.vigenciaSimulacroMs ?? 24 * 60 * 60 * 1000,
+    topeDiario: opciones.topeDiario ?? null,
   };
 
   registrarEstadisticas(server, ctx);

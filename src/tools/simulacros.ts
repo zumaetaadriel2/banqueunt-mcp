@@ -53,7 +53,7 @@ export function registrarSimulacros(server: McpServer, ctx: Contexto): void {
       },
     },
     (args) =>
-      ejecutar(async () => {
+      ejecutar(ctx, 'generar_simulacro', async (servir) => {
         const curso = await ctx.banco.resolverCurso(args.curso);
         const candidatas = filtrar(await ctx.banco.unicas(curso), {
           especialidades: args.especialidades,
@@ -75,6 +75,7 @@ export function registrarSimulacros(server: McpServer, ctx: Contexto): void {
         const nuevas = elegirAlAzar(noVistas, args.cantidad, ctx.rng);
         const yaVistas = candidatas.filter((q) => vistas.has(firmaPregunta(q)));
         const elegidas = [...nuevas, ...elegirAlAzar(yaVistas, args.cantidad - nuevas.length, ctx.rng)];
+        await servir(elegidas.length);
 
         const ahora = ctx.ahora();
         const id = ctx.nuevoId();
@@ -172,7 +173,7 @@ export function registrarSimulacros(server: McpServer, ctx: Contexto): void {
       },
     },
     ({ simulacro_id, respuestas }) =>
-      ejecutar(async () => {
+      ejecutar(ctx, 'corregir_simulacro', async () => {
         const s = await ctx.repo.obtenerSimulacro(simulacro_id, ctx.usuario);
         if (!s) return error(`No existe el simulacro «${simulacro_id}».`);
         if (s.corregidoEn) {
@@ -263,7 +264,7 @@ export function registrarSimulacros(server: McpServer, ctx: Contexto): void {
       annotations: { readOnlyHint: true, openWorldHint: false },
     },
     ({ pregunta_id }) =>
-      ejecutar(async () => {
+      ejecutar(ctx, 'explicar_pregunta', async () => {
         const corregida = await ctx.repo.preguntaCorregida(ctx.usuario, pregunta_id);
         if (!corregida) {
           return error('Solo se pueden explicar preguntas que ya corregiste en un simulacro.');
