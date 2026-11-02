@@ -12,17 +12,9 @@ Students can search questions, take mock exams, get graded with detailed explana
 
 ## Demo
 
-```text
-You:    Give me a 5-question mock exam on Cardiology.
-Claude: [generar_simulacro] Mock exam 5e63c63bf544 · med2_unt · 5 questions
-        1. A 62-year-old man with dyspnea and orthopnea… A) … B) … C) … D) … E) …
-        …
-You:    1 C, 2 A, 3 B, 4 D, 5 A
-Claude: [corregir_simulacro] Score: 4/5 (80 %)
-        ✘ 3. You answered B, key D. Why D: … Why not B: … Remember: …
-You:    What should I review?
-Claude: [mi_progreso] Weakest topics: Heart failure (40 %), Valvular disease (50 %)…
-```
+![Claude generates a 3-question Cardiology mock exam, grades the answers with explanations and suggests what to review](docs/demo.gif)
+
+_Claude Code with the bundled sample bank (in Spanish): `generar_simulacro` → the student answers → `corregir_simulacro` → `mi_progreso`._
 
 ## Features
 
