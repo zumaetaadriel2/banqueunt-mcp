@@ -1,4 +1,4 @@
-import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import type { McpServer } from '@modelcontextprotocol/server';
 import { z } from 'zod';
 import { calcularProgreso, MIN_PARA_DEBIL } from '../dominio/progreso.js';
 import { ejecutar, resultado, type Contexto } from './contexto.js';
@@ -12,8 +12,8 @@ export function registrarProgreso(server: McpServer, ctx: Contexto): void {
       description:
         'Resume los simulacros corregidos del alumno: porcentaje global, rendimiento por especialidad, temas ' +
         'débiles (2+ respuestas), temas fallados recientemente y últimos simulacros. Úsalo para recomendar qué repasar.',
-      inputSchema: { curso: z.string().optional().describe('Solo ese curso; sin él, todos') },
-      outputSchema: {
+      inputSchema: z.object({ curso: z.string().optional().describe('Solo ese curso; sin él, todos') }),
+      outputSchema: z.object({
         simulacros: z.int(),
         respondidas: z.int(),
         aciertos: z.int(),
@@ -39,7 +39,7 @@ export function registrarProgreso(server: McpServer, ctx: Contexto): void {
             porcentaje: z.int(),
           }),
         ),
-      },
+      }),
       annotations: { readOnlyHint: true, openWorldHint: false },
     },
     ({ curso }) =>

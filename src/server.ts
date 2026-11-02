@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { McpServer } from '@modelcontextprotocol/server';
 import type { FuenteBanco } from './datos/fuentes.js';
 import { Banco } from './dominio/banco.js';
 import type { ProgresoRepo } from './persistencia/repo.js';
