@@ -1,8 +1,8 @@
 // Prueba rápida del servidor compilado por stdio, como lo usaría Claude: npx tsx scripts/probar-stdio.ts
 // Usa BANQUEUNT_DATA y BANQUEUNT_DB del entorno (apunta BANQUEUNT_DB a un archivo de prueba
 // para no mezclar este simulacro con tu progreso real).
-import { Client } from '@modelcontextprotocol/sdk/client/index.js';
-import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
+import { Client } from '@modelcontextprotocol/client';
+import { StdioClientTransport } from '@modelcontextprotocol/client/stdio';
 
 type Texto = { type: string; text: string }[];
 

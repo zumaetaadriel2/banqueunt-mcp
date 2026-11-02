@@ -1,11 +1,11 @@
-import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import type { McpServer } from '@modelcontextprotocol/server';
 import { z } from 'zod';
 import { estadisticasCurso, type EstadisticasCurso } from '../dominio/estadisticas.js';
 import { ejecutar, resultado, type Contexto } from './contexto.js';
 
 const Conteo = z.object({ nombre: z.string(), preguntas: z.int() });
 
-const Salida = {
+const Salida = z.object({
   origen: z.string().describe('De dónde salen las preguntas: "muestra" (pública) o "carpeta" (banco local)'),
   cursos: z.array(
     z.object({
@@ -20,7 +20,7 @@ const Salida = {
       porTema: z.array(Conteo).optional(),
     }),
   ),
-};
+});
 
 function resumen(origen: string, cursos: EstadisticasCurso[]): string {
   const lineas = [`Banco BanqueUNT (origen: ${origen})`];
@@ -52,7 +52,7 @@ export function registrarEstadisticas(server: McpServer, ctx: Contexto): void {
       description:
         'Cuenta las preguntas del banco por curso, especialidad y año (y por tema si se indica una especialidad). ' +
         'Las preguntas repetidas en varios exámenes se cuentan una sola vez. No devuelve preguntas ni respuestas.',
-      inputSchema: {
+      inputSchema: z.object({
         curso: z
           .string()
           .optional()
@@ -61,7 +61,7 @@ export function registrarEstadisticas(server: McpServer, ctx: Contexto): void {
           .string()
           .optional()
           .describe('Si se indica, añade el conteo por tema de esa especialidad (p. ej. "Cardiología")'),
-      },
+      }),
       outputSchema: Salida,
       annotations: { readOnlyHint: true, openWorldHint: false },
     },

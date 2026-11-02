@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Migrated to the MCP TypeScript SDK v2 (`@modelcontextprotocol/server` 2.4; `@modelcontextprotocol/client` for tests and scripts), replacing `@modelcontextprotocol/sdk` v1. This prepares the remote mode on Cloudflare Workers.
+- The stdio entry point uses `serveStdio`, so the server answers both 2025-era clients (with the `initialize` handshake) and clients of the stateless 2026 protocol revision.
+- Tool, output and prompt schemas are declared with `z.object(...)`; optional completable prompt arguments use `completable(schema).optional()`.
+
 ## [0.1.0] - 2026-11-01
 
 First public release: a local MCP server over stdio for the BanqueUNT medical question bank.

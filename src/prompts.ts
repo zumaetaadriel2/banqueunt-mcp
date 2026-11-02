@@ -1,6 +1,4 @@
-import { completable } from '@modelcontextprotocol/sdk/server/completable.js';
-import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import type { GetPromptResult } from '@modelcontextprotocol/sdk/types.js';
+import { completable, type GetPromptResult, type McpServer } from '@modelcontextprotocol/server';
 import { z } from 'zod';
 import { estadisticasCurso } from './dominio/estadisticas.js';
 import { normalizarTexto } from './dominio/busqueda.js';
@@ -46,11 +44,11 @@ export function registrarPrompts(server: McpServer, ctx: Contexto): void {
     {
       title: 'Sesión de repaso con tutor',
       description: 'Repaso pregunta por pregunta: el tutor pregunta, espera tu respuesta, corrige y explica.',
-      argsSchema: {
-        curso: completable(z.string().optional().describe('Curso, p. ej. med2_unt'), completarCurso),
-        especialidad: completable(z.string().optional().describe('P. ej. Nefrología'), completarEspecialidad),
+      argsSchema: z.object({
+        curso: completable(z.string().describe('Curso, p. ej. med2_unt'), completarCurso).optional(),
+        especialidad: completable(z.string().describe('P. ej. Nefrología'), completarEspecialidad).optional(),
         cantidad: z.string().optional().describe('Cuántas preguntas (por defecto 5, máximo 20)'),
-      },
+      }),
     },
     async ({ curso, especialidad, cantidad }) => {
       const n = cantidadDe(cantidad, 5, 20);
@@ -83,10 +81,10 @@ export function registrarPrompts(server: McpServer, ctx: Contexto): void {
     {
       title: 'Repasar mis temas débiles',
       description: 'Arma un simulacro con los temas que más te cuestan o que fallaste hace poco.',
-      argsSchema: {
-        curso: completable(z.string().optional().describe('Curso, p. ej. med2_unt'), completarCurso),
+      argsSchema: z.object({
+        curso: completable(z.string().describe('Curso, p. ej. med2_unt'), completarCurso).optional(),
         cantidad: z.string().optional().describe('Cuántas preguntas (por defecto 10, máximo 30)'),
-      },
+      }),
     },
     async ({ curso, cantidad }) => {
       const n = cantidadDe(cantidad, 10, 30);

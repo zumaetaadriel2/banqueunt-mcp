@@ -1,4 +1,4 @@
-import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import type { McpServer } from '@modelcontextprotocol/server';
 import { z } from 'zod';
 import { firmaPregunta } from '../datos/firma.js';
 import { avisosDe, letra, normalizarExplicacion } from '../datos/normalizar.js';
@@ -23,7 +23,7 @@ export function registrarSimulacros(server: McpServer, ctx: Contexto): void {
         'Arma un simulacro al azar con preguntas del banco, sin repetir y priorizando las que el alumno aún no vio. ' +
         'Devuelve un simulacro_id y las preguntas numeradas SIN respuesta. Muéstralas al alumno sin resolverlas ' +
         'y, cuando responda, llama a corregir_simulacro.',
-      inputSchema: {
+      inputSchema: z.object({
         curso: z.string().optional().describe('Id del curso; opcional si el servidor tiene uno solo'),
         cantidad: z.int().min(1).max(MAX_PREGUNTAS_SIMULACRO).default(10),
         especialidades: z.array(z.string()).optional().describe('P. ej. ["Cardiología", "Nefrología"]'),
@@ -40,8 +40,8 @@ export function registrarSimulacros(server: McpServer, ctx: Contexto): void {
           .describe(
             'Primero preguntas que no salieron en simulacros anteriores; si no alcanzan, completa con vistas',
           ),
-      },
-      outputSchema: {
+      }),
+      outputSchema: z.object({
         simulacro_id: z.string(),
         curso: z.string(),
         total: z.int(),
@@ -50,7 +50,7 @@ export function registrarSimulacros(server: McpServer, ctx: Contexto): void {
         disponibles: z.int().describe('Preguntas que cumplen los filtros'),
         expira_en: z.string(),
         preguntas: z.array(PreguntaPublica.extend({ numero: z.int() })),
-      },
+      }),
     },
     (args) =>
       ejecutar(ctx, 'generar_simulacro', async (servir) => {
@@ -138,13 +138,13 @@ export function registrarSimulacros(server: McpServer, ctx: Contexto): void {
         'Corrige un simulacro generado con generar_simulacro. Devuelve la nota, la clave de cada pregunta y la ' +
         'explicación de las falladas. Las preguntas sin respuesta cuentan como incorrectas. Cada simulacro se ' +
         'corrige una sola vez.',
-      inputSchema: {
+      inputSchema: z.object({
         simulacro_id: z.string(),
         respuestas: z
           .record(z.string().regex(/^\d+$/), z.string())
           .describe('Número de pregunta → letra, p. ej. {"1": "A", "2": "C"}'),
-      },
-      outputSchema: {
+      }),
+      outputSchema: z.object({
         simulacro_id: z.string(),
         curso: z.string(),
         aciertos: z.int(),
@@ -170,7 +170,7 @@ export function registrarSimulacros(server: McpServer, ctx: Contexto): void {
             explicacion: Explicacion.optional(),
           }),
         ),
-      },
+      }),
     },
     ({ simulacro_id, respuestas }) =>
       ejecutar(ctx, 'corregir_simulacro', async () => {
@@ -255,12 +255,14 @@ export function registrarSimulacros(server: McpServer, ctx: Contexto): void {
       description:
         'Devuelve la clave y la explicación completa de una pregunta que el alumno YA corrigió en un simulacro. ' +
         'No sirve para preguntas que todavía no respondió.',
-      inputSchema: { pregunta_id: z.string().describe('El pregunta_id que aparece en la corrección') },
-      outputSchema: {
+      inputSchema: z.object({
+        pregunta_id: z.string().describe('El pregunta_id que aparece en la corrección'),
+      }),
+      outputSchema: z.object({
         pregunta: PreguntaPublica,
         tema: z.string(),
         explicacion: Explicacion,
-      },
+      }),
       annotations: { readOnlyHint: true, openWorldHint: false },
     },
     ({ pregunta_id }) =>

@@ -17,9 +17,10 @@ npx prettier --write .
 npm run muestra      # regenera data/muestra.json (requiere BANQUEUNT_DATA)
 npm run uso -- 7     # llamadas y preguntas servidas por usuario en los últimos 7 días
 npx tsx scripts/probar-stdio.ts   # flujo generar → corregir → mi_progreso por stdio
+npx @modelcontextprotocol/inspector --cli -e BANQUEUNT_DB=<temporal> node dist/index.js --method tools/list
 ```
 
-Variables: `BANQUEUNT_DATA` (carpeta `data/` de examen-pwa; sin ella se usa la muestra), `BANQUEUNT_CURSOS` (por defecto `med2_unt`), `BANQUEUNT_DB` (SQLite del progreso; por defecto `%LOCALAPPDATA%\banqueunt-mcp\progreso.db`), `BANQUEUNT_TOPE_DIARIO` (preguntas por usuario al día; vacío o 0 = sin tope, lo normal en local). Para pruebas, apunta `BANQUEUNT_DB` a un archivo temporal y bórralo al terminar: no mezcles pruebas con el progreso real del usuario.
+Variables: `BANQUEUNT_DATA` (carpeta `data/` de examen-pwa; sin ella se usa la muestra), `BANQUEUNT_CURSOS` (por defecto `med2_unt`), `BANQUEUNT_DB` (SQLite del progreso; por defecto `%LOCALAPPDATA%\banqueunt-mcp\progreso.db`), `BANQUEUNT_TOPE_DIARIO` (preguntas por usuario al día; vacío o 0 = sin tope, lo normal en local). Para pruebas, apunta `BANQUEUNT_DB` a un archivo temporal y bórralo al terminar: no mezcles pruebas con el progreso real del usuario. MCP Inspector no hereda las variables de entorno: pásalas con `-e`.
 
 Después de `npm run build`, el servidor ya conectado sigue con el código viejo: hay que abrir una sesión nueva de Claude Code o reconectar con `/mcp`.
 
@@ -28,7 +29,7 @@ Después de `npm run build`, el servidor ya conectado sigue con el código viejo
 - `src/datos/`: esquema zod de las preguntas (dos formatos de `fundamentoDetallado`), normalizador de explicaciones, firma de deduplicación (portada de `questionSignature()` de examen-pwa) y fuentes (`MuestraLocal`, `CarpetaLocal`, que lee `index.json → archivos` y comprueba las huellas sha256).
 - `src/dominio/`: lógica pura (búsqueda, simulacros, corrección, progreso, salida pública).
 - `src/persistencia/`: `ProgresoRepo` (interfaz asíncrona) y su implementación SQLite con `node:sqlite`. Guarda simulacros y el registro de llamadas (`llamadas`), del que sale el tope diario. En la Fase 6 se añadirá D1.
-- `src/tools/`, `src/recursos.ts`, `src/prompts.ts`: superficie MCP. `src/server.ts` lo registra todo; `src/index.ts` es la entrada por stdio.
+- `src/tools/`, `src/recursos.ts`, `src/prompts.ts`: superficie MCP con el SDK v2 (`@modelcontextprotocol/server`; los esquemas van en `z.object`). `src/server.ts` lo registra todo; `src/index.ts` es la entrada por stdio.
 
 ## Reglas que no se rompen
 
