@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Cloudflare Workers entry point (`src/worker.ts`): stateless MCP over Streamable HTTP at `/mcp` with the SDK's `createMcpHandler`, Host and Origin validation, and the bundled sample bank. Local only for now (`npm run worker:dev`); there is no login yet, so it is not deployed publicly.
+- `D1ProgresoRepo`: progress, mock exams and the call log in Cloudflare D1, sharing schema and queries with SQLite (`src/persistencia/sql.ts`) and the D1 migration `migrations/0001_inicial.sql`.
+- Shared contract tests that run against both SQLite and D1, and a CI step that bundles the Worker without deploying (`npm run worker:check`).
+- `scripts/probar-flujo.ts` (formerly `probar-stdio.ts`) can also test the flow over HTTP.
+
 ### Changed
 
 - Migrated to the MCP TypeScript SDK v2 (`@modelcontextprotocol/server` 2.4; `@modelcontextprotocol/client` for tests and scripts), replacing `@modelcontextprotocol/sdk` v1. This prepares the remote mode on Cloudflare Workers.

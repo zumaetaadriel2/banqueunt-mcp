@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { serveStdio } from '@modelcontextprotocol/server/stdio';
-import { crearFuente, leerConfiguracion } from './datos/fuentes.js';
+import { crearFuente, leerConfiguracion } from './datos/fuentes-node.js';
 import { leerTopeDiario } from './dominio/limites.js';
 import { rutaPorDefecto, SqliteProgresoRepo } from './persistencia/sqlite.js';
 import { crearServidor } from './server.js';

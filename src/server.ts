@@ -1,4 +1,3 @@
-import { randomUUID } from 'node:crypto';
 import { McpServer } from '@modelcontextprotocol/server';
 import type { FuenteBanco } from './datos/fuentes.js';
 import { Banco } from './dominio/banco.js';
@@ -33,19 +32,24 @@ export interface OpcionesServidor {
   topeDiario?: number | null;
 }
 
+/**
+ * `fuente` puede ser un Banco ya creado: el Worker arma un servidor por petición y así reutiliza la
+ * deduplicación y los índices que el Banco guarda en caché.
+ */
 export function crearServidor(
-  fuente: FuenteBanco,
+  fuente: FuenteBanco | Banco,
   repo: ProgresoRepo,
   opciones: OpcionesServidor = {},
 ): McpServer {
   const server = new McpServer({ name: NOMBRE, version: VERSION }, { instructions: INSTRUCCIONES });
   const ctx: Contexto = {
-    banco: new Banco(fuente),
+    banco: fuente instanceof Banco ? fuente : new Banco(fuente),
     repo,
     usuario: opciones.usuario ?? 'local',
     ahora: opciones.ahora ?? (() => new Date()),
     rng: opciones.rng ?? Math.random,
-    nuevoId: opciones.nuevoId ?? (() => randomUUID().replace(/-/g, '').slice(0, 12)),
+    // crypto global: existe en Node y en Workers
+    nuevoId: opciones.nuevoId ?? (() => crypto.randomUUID().replace(/-/g, '').slice(0, 12)),
     vigenciaSimulacroMs: opciones.vigenciaSimulacroMs ?? 24 * 60 * 60 * 1000,
     topeDiario: opciones.topeDiario ?? null,
   };

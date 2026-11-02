@@ -136,10 +136,11 @@ flowchart LR
 ```
 src/
   index.ts          stdio entry point
+  worker.ts         Cloudflare Workers entry point (Streamable HTTP, work in progress)
   server.ts         registers tools, resources and prompts
   datos/            zod schema, explanation normalizer, dedup signature, question sources
   dominio/          pure logic: search, mock exams, grading, progress, daily limit
-  persistencia/     ProgresoRepo interface + SQLite implementation
+  persistencia/     ProgresoRepo interface + SQLite (local) and Cloudflare D1 (remote) implementations
   tools/            one file per group of tools
 tests/              Vitest: unit tests + end-to-end tests with a real MCP client in memory
 ```
@@ -164,7 +165,7 @@ npm run uso -- 7    # calls and questions served per user in the last 7 days
 
 ## Roadmap
 
-- Remote mode for subscribers: Streamable HTTP on Cloudflare Workers, OAuth 2.1 with Supabase Auth login, the bank in a private R2 bucket and progress in D1.
+- Remote mode for subscribers on Cloudflare Workers. Done: stateless Streamable HTTP entry point and progress in D1, runnable locally with `npm run worker:migrar` and `npm run worker:dev` (sample bank only). Next: OAuth 2.1 with Supabase Auth login and the bank in a private R2 bucket.
 - More courses (ENCIB, Residentado) and images.
 - `npx banqueunt-mcp` on npm.
 

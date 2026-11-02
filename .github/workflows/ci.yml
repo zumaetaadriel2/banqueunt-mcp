@@ -34,3 +34,7 @@ jobs:
       - run: npx prettier --check .
       - run: npm run build
       - run: npm test
+      # Empaqueta el Worker sin desplegar (no necesita cuenta de Cloudflare)
+      - run: npm run worker:check
+        env:
+          WRANGLER_SEND_METRICS: 'false'
