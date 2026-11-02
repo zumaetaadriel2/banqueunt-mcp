@@ -152,7 +152,7 @@ Los aciertos por tema se calculan con un join contra el banco cargado. La ruta d
 ### Fase 5: Presentación
 
 - [x] README en inglés: instalación (Claude Desktop, Claude Code, Cursor y VS Code), tabla de tools, configuración, diagrama de arquitectura (Mermaid) y decisiones de diseño. Licencia MIT
-- [ ] Demo en GIF para el README (por ahora hay una conversación de ejemplo en texto)
+- [x] Demo en GIF para el README (`docs/demo.gif`, grabado con la muestra: simulacro → corrección → progreso)
 - [x] GitHub Actions: lint, `tsc --noEmit`, Prettier, build y tests en Node 22 y 24
 - [ ] Portafolio y LinkedIn
 
