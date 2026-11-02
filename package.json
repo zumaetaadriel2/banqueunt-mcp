@@ -23,7 +23,10 @@
     "test": "vitest run",
     "inspector": "npx @modelcontextprotocol/inspector node dist/index.js",
     "muestra": "tsx scripts/crear-muestra.ts",
-    "uso": "tsx scripts/uso.ts"
+    "uso": "tsx scripts/uso.ts",
+    "worker:migrar": "wrangler d1 migrations apply banqueunt-mcp --local",
+    "worker:dev": "wrangler dev",
+    "worker:check": "wrangler deploy --dry-run --outdir .wrangler/dry-run"
   },
   "license": "MIT",
   "dependencies": {
@@ -39,6 +42,7 @@
     "tsx": "^4.23.15",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.72.1",
-    "vitest": "^5.0.5"
+    "vitest": "^5.0.5",
+    "wrangler": "^4.156.1"
   }
 }

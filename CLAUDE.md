@@ -16,7 +16,10 @@ npm run typecheck    # tsc --noEmit
 npx prettier --write .
 npm run muestra      # regenera data/muestra.json (requiere BANQUEUNT_DATA)
 npm run uso -- 7     # llamadas y preguntas servidas por usuario en los últimos 7 días
-npx tsx scripts/probar-stdio.ts   # flujo generar → corregir → mi_progreso por stdio
+npx tsx scripts/probar-flujo.ts   # flujo generar → corregir → mi_progreso por stdio (con una URL, por HTTP)
+npm run worker:migrar            # aplica migrations/ a la D1 local de wrangler
+npm run worker:dev               # Worker en http://127.0.0.1:8787/mcp (D1 local)
+npm run worker:check             # empaqueta el Worker sin desplegar (también en el CI)
 npx @modelcontextprotocol/inspector --cli -e BANQUEUNT_DB=<temporal> node dist/index.js --method tools/list
 ```
 
@@ -26,10 +29,10 @@ Después de `npm run build`, el servidor ya conectado sigue con el código viejo
 
 ## Arquitectura
 
-- `src/datos/`: esquema zod de las preguntas (dos formatos de `fundamentoDetallado`), normalizador de explicaciones, firma de deduplicación (portada de `questionSignature()` de examen-pwa) y fuentes (`MuestraLocal`, `CarpetaLocal`, que lee `index.json → archivos` y comprueba las huellas sha256).
+- `src/datos/`: esquema zod de las preguntas (dos formatos de `fundamentoDetallado`), normalizador de explicaciones, firma de deduplicación (portada de `questionSignature()` de examen-pwa) y fuentes. `fuentes.ts` corre en Node y en Workers (`FuenteBanco`, `MuestraEmbebida`); `fuentes-node.ts` lee del disco (`MuestraLocal`, `CarpetaLocal`, que lee `index.json → archivos` y comprueba las huellas sha256).
 - `src/dominio/`: lógica pura (búsqueda, simulacros, corrección, progreso, salida pública).
-- `src/persistencia/`: `ProgresoRepo` (interfaz asíncrona) y su implementación SQLite con `node:sqlite`. Guarda simulacros y el registro de llamadas (`llamadas`), del que sale el tope diario. En la Fase 6 se añadirá D1.
-- `src/tools/`, `src/recursos.ts`, `src/prompts.ts`: superficie MCP con el SDK v2 (`@modelcontextprotocol/server`; los esquemas van en `z.object`). `src/server.ts` lo registra todo; `src/index.ts` es la entrada por stdio.
+- `src/persistencia/`: `ProgresoRepo` (interfaz asíncrona) con dos implementaciones que comparten esquema y consultas (`sql.ts`): SQLite con `node:sqlite` (local) y Cloudflare D1 (`d1.ts`, remoto). Guarda simulacros y el registro de llamadas (`llamadas`), del que sale el tope diario. `migrations/0001_inicial.sql` debe coincidir con `ESQUEMA`; los cambios de esquema van en una migración nueva. `tests/persistencia.test.ts` corre el mismo contrato contra las dos.
+- `src/tools/`, `src/recursos.ts`, `src/prompts.ts`: superficie MCP con el SDK v2 (`@modelcontextprotocol/server`; los esquemas van en `z.object`). `src/server.ts` lo registra todo; `src/index.ts` es la entrada por stdio y `src/worker.ts` la del Worker (`createMcpHandler`, sin estado; valida Host y Origin). Fuera de `index.ts`, `fuentes-node.ts` y `sqlite.ts` no se importa nada de `node:*`: el resto también corre en Workers.
 
 ## Reglas que no se rompen
 

@@ -1,0 +1,23 @@
+// Worker de BanqueUNT MCP (modo remoto). Fase 6a: solo la muestra pública; probar con `npm run worker:dev`.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "banqueunt-mcp",
+  "main": "src/worker.ts",
+  "compatibility_date": "2026-10-01",
+  "observability": { "enabled": true },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "banqueunt-mcp",
+      // En local (wrangler dev) da igual. Antes de desplegar: `npx wrangler d1 create banqueunt-mcp` y pegar el id.
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations",
+    },
+  ],
+  "vars": {
+    "BANQUEUNT_CURSOS": "med2_unt",
+    // Sin login todos comparten el usuario «anonimo», así que el tope es para todo el Worker
+    "BANQUEUNT_TOPE_DIARIO": "300",
+    "BANQUEUNT_HOSTS": "",
+  },
+}

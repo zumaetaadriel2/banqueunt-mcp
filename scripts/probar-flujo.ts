@@ -1,18 +1,23 @@
-// Prueba rápida del servidor compilado por stdio, como lo usaría Claude: npx tsx scripts/probar-stdio.ts
-// Usa BANQUEUNT_DATA y BANQUEUNT_DB del entorno (apunta BANQUEUNT_DB a un archivo de prueba
+// Flujo generar → corregir → mi_progreso, como lo usaría un asistente:
+//   npx tsx scripts/probar-flujo.ts                            stdio, contra dist/index.js
+//   npx tsx scripts/probar-flujo.ts http://127.0.0.1:8787/mcp  HTTP, contra el Worker (npm run worker:dev)
+// Por stdio usa BANQUEUNT_DATA y BANQUEUNT_DB del entorno (apunta BANQUEUNT_DB a un archivo de prueba
 // para no mezclar este simulacro con tu progreso real).
-import { Client } from '@modelcontextprotocol/client';
+import { Client, StreamableHTTPClientTransport } from '@modelcontextprotocol/client';
 import { StdioClientTransport } from '@modelcontextprotocol/client/stdio';
 
 type Texto = { type: string; text: string }[];
 
-const transport = new StdioClientTransport({
-  command: process.execPath,
-  args: ['dist/index.js'],
-  env: { ...process.env } as Record<string, string>,
-  stderr: 'inherit',
-});
-const client = new Client({ name: 'probar-stdio', version: '0.0.0' });
+const url = process.argv[2];
+const transport = url
+  ? new StreamableHTTPClientTransport(new URL(url))
+  : new StdioClientTransport({
+      command: process.execPath,
+      args: ['dist/index.js'],
+      env: { ...process.env } as Record<string, string>,
+      stderr: 'inherit',
+    });
+const client = new Client({ name: 'probar-flujo', version: '0.0.0' });
 await client.connect(transport);
 
 const llamar = async (name: string, args: Record<string, unknown> = {}) => {
