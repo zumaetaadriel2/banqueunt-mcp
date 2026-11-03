@@ -11,7 +11,7 @@ import { registrarProgreso } from './tools/progreso.js';
 import { registrarSimulacros } from './tools/simulacros.js';
 
 export const NOMBRE = 'banqueunt';
-export const VERSION = '0.1.0';
+export const VERSION = '0.2.0';
 
 const INSTRUCCIONES = `Banco de preguntas médicas de BanqueUNT (UNT, Perú) para practicar.
 - Usa estadisticas_banco para ver cursos, especialidades y años antes de proponer un simulacro.
