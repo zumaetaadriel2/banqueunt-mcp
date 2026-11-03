@@ -1,9 +1,12 @@
-// Worker de BanqueUNT MCP (modo remoto). Fase 6a: solo la muestra pública; probar con `npm run worker:dev`.
+// Worker de BanqueUNT MCP (modo remoto): /mcp protegido con OAuth 2.1 y login con la cuenta de BanqueUNT.
+// En local: `npm run worker:migrar` y `npm run worker:dev`, con los secrets en .dev.vars (ver .dev.vars.example).
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "banqueunt-mcp",
   "main": "src/worker.ts",
   "compatibility_date": "2026-10-01",
+  // CIMD: la librería OAuth descarga los metadatos del cliente; esta flag impide que apunten a IPs privadas
+  "compatibility_flags": ["global_fetch_strictly_public"],
   "observability": { "enabled": true },
   "d1_databases": [
     {
@@ -14,10 +17,18 @@
       "migrations_dir": "migrations",
     },
   ],
+  // Clientes, grants y tokens OAuth (solo hashes y props cifradas). Antes de desplegar:
+  // `npx wrangler kv namespace create OAUTH_KV` y pegar el id.
+  "kv_namespaces": [{ "binding": "OAUTH_KV", "id": "00000000000000000000000000000000" }],
   "vars": {
     "BANQUEUNT_CURSOS": "med2_unt",
-    // Sin login todos comparten el usuario «anonimo», así que el tope es para todo el Worker
+    // Preguntas que cada alumno puede recibir al día
     "BANQUEUNT_TOPE_DIARIO": "300",
-    "BANQUEUNT_HOSTS": "",
+    // Origen público del Worker: identifica el recurso OAuth (/mcp) y el emisor de los tokens.
+    // En producción, el de workers.dev o tu dominio (p. ej. https://banqueunt-mcp.<cuenta>.workers.dev).
+    "BANQUEUNT_ORIGEN": "http://127.0.0.1:8787",
+    "SUPABASE_URL": "https://uhzyztyrcylzyfgmsivx.supabase.co",
   },
+  // Los valores no van en este archivo: en local, en .dev.vars; en producción, `npx wrangler secret put <NOMBRE>`
+  "secrets": { "required": ["SUPABASE_ANON_KEY", "CONSENT_SECRET"] },
 }

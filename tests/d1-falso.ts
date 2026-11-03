@@ -1,6 +1,6 @@
 import { DatabaseSync, type SQLInputValue } from 'node:sqlite';
 import type { BaseD1, SentenciaD1 } from '../src/persistencia/d1.js';
-import { ESQUEMA } from '../src/persistencia/sql.js';
+import { ESQUEMA, ESQUEMA_REMOTO } from '../src/persistencia/sql.js';
 
 /**
  * Imitación de un binding de Cloudflare D1 sobre node:sqlite (D1 también es SQLite), para probar
@@ -9,7 +9,7 @@ import { ESQUEMA } from '../src/persistencia/sql.js';
 export function d1EnMemoria(): BaseD1 & { db: DatabaseSync } {
   const db = new DatabaseSync(':memory:');
   db.exec('pragma foreign_keys = on;');
-  db.exec(ESQUEMA);
+  db.exec(ESQUEMA + ESQUEMA_REMOTO);
 
   const sentencia = (sql: string, valores: SQLInputValue[] = []): SentenciaD1 => ({
     bind: (...nuevos) => sentencia(sql, nuevos as SQLInputValue[]),

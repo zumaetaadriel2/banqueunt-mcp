@@ -1,0 +1,8 @@
+# Copia este archivo como .dev.vars (está en .gitignore) para `npm run worker:dev`.
+# En producción van con `npx wrangler secret put <NOMBRE>`.
+
+# Supabase → Project Settings → API → anon public (la misma que usa la PWA)
+SUPABASE_ANON_KEY=
+# Firma las cookies del consentimiento: 32+ caracteres al azar, p. ej.
+#   node -e "console.log(require('crypto').randomBytes(32).toString('base64url'))"
+CONSENT_SECRET=

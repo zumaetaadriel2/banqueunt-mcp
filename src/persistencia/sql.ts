@@ -2,7 +2,7 @@ import type { ItemRespondido, ResumenSimulacro, Simulacro, UsoUsuario } from './
 
 /**
  * Esquema y consultas que comparten SQLite (local) y Cloudflare D1 (remoto), que también es SQLite.
- * migrations/0001_inicial.sql tiene que coincidir con ESQUEMA (lo comprueba tests/persistencia.test.ts).
+ * migrations/ tiene que coincidir con ESQUEMA + ESQUEMA_REMOTO (lo comprueba tests/persistencia.test.ts).
  */
 export const ESQUEMA = `
 create table if not exists simulacros (
@@ -40,6 +40,16 @@ create table if not exists llamadas (
   resultado    text not null
 );
 create index if not exists llamadas_usuario on llamadas (usuario, en);
+`;
+
+/** Solo en D1 (migrations/0002_intentos_login.sql): logins fallidos en /authorize, por correo y por IP */
+export const ESQUEMA_REMOTO = `
+create table if not exists intentos_login (
+  id     integer primary key,
+  clave  text not null,
+  en     text not null
+);
+create index if not exists intentos_login_clave on intentos_login (clave, en);
 `;
 
 export const SQL = {

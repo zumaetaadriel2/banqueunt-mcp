@@ -2,34 +2,54 @@ import type { Pregunta } from '../datos/esquema.js';
 import { deduplicar } from '../datos/firma.js';
 import { CursoNoDisponible, type FuenteBanco } from '../datos/fuentes.js';
 
+interface Caches {
+  unicas: Map<string, Promise<Pregunta[]>>;
+  porId: Map<string, Promise<Map<string, Pregunta>>>;
+}
+
 /** Acceso al banco ya cargado: preguntas sin repetir y búsqueda por id, con caché por curso. */
 export class Banco {
-  private readonly unicasPorCurso = new Map<string, Promise<Pregunta[]>>();
-  private readonly porIdPorCurso = new Map<string, Promise<Map<string, Pregunta>>>();
+  constructor(
+    private readonly fuente: FuenteBanco,
+    /** Cursos que puede ver quien usa este Banco; sin él, todos los de la fuente */
+    private readonly permitidos?: readonly string[],
+    private readonly caches: Caches = { unicas: new Map(), porId: new Map() },
+  ) {}
 
-  constructor(private readonly fuente: FuenteBanco) {}
+  /**
+   * El mismo banco limitado a unos cursos (los de mis_cursos() del alumno). Comparte la caché, así
+   * el Worker deduplica cada curso una sola vez para todos los alumnos.
+   */
+  restringido(cursos: readonly string[]): Banco {
+    const permitidos = this.permitidos ? cursos.filter((c) => this.permitidos!.includes(c)) : cursos;
+    return new Banco(this.fuente, permitidos, this.caches);
+  }
 
   get origen(): string {
     return this.fuente.origen;
   }
 
-  cursos(): Promise<string[]> {
-    return this.fuente.cursos();
+  async cursos(): Promise<string[]> {
+    const todos = await this.fuente.cursos();
+    return this.permitidos ? todos.filter((c) => this.permitidos!.includes(c)) : todos;
   }
 
   /** Todas las publicadas, con las repetidas entre exámenes */
-  publicadas(curso: string): Promise<Pregunta[]> {
+  async publicadas(curso: string): Promise<Pregunta[]> {
+    if (this.permitidos && !this.permitidos.includes(curso)) {
+      throw new CursoNoDisponible(curso, await this.cursos());
+    }
     return this.fuente.preguntas(curso);
   }
 
   /** Una sola vez cada pregunta, aunque esté en varios exámenes */
   unicas(curso: string): Promise<Pregunta[]> {
-    return this.memo(this.unicasPorCurso, curso, async () => deduplicar(await this.publicadas(curso)));
+    return this.memo(this.caches.unicas, curso, async () => deduplicar(await this.publicadas(curso)));
   }
 
   async buscarPorId(curso: string, id: string): Promise<Pregunta | undefined> {
     const indice = await this.memo(
-      this.porIdPorCurso,
+      this.caches.porId,
       curso,
       async () => new Map((await this.publicadas(curso)).map((q) => [q.id, q])),
     );

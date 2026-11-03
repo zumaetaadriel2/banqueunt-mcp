@@ -1,10 +1,10 @@
-import { readFile } from 'node:fs/promises';
+import { readdir, readFile } from 'node:fs/promises';
 import { Client, InMemoryTransport } from '@modelcontextprotocol/client';
 import { describe, expect, it } from 'vitest';
 import { MuestraLocal } from '../src/datos/fuentes-node.js';
 import { D1ProgresoRepo } from '../src/persistencia/d1.js';
 import type { ItemSimulacro, ProgresoRepo, Simulacro } from '../src/persistencia/repo.js';
-import { ESQUEMA } from '../src/persistencia/sql.js';
+import { ESQUEMA, ESQUEMA_REMOTO } from '../src/persistencia/sql.js';
 import { SqliteProgresoRepo } from '../src/persistencia/sqlite.js';
 import { crearServidor } from '../src/server.js';
 import { d1EnMemoria } from './d1-falso.js';
@@ -154,14 +154,26 @@ describe.each(implementaciones)('ProgresoRepo con %s', (_nombre, crear) => {
   });
 });
 
-describe('migración de D1', () => {
-  it('migrations/0001_inicial.sql coincide con el esquema de SQLite', async () => {
-    const sql = await readFile(new URL('../migrations/0001_inicial.sql', import.meta.url), 'utf8');
-    const sinComentarios = sql
+describe('migraciones de D1', () => {
+  const leer = async (archivo: string) =>
+    (await readFile(new URL(`../migrations/${archivo}`, import.meta.url), 'utf8'))
       .replace(/^--.*$/gm, '')
       .replace(/\r\n/g, '\n')
       .trim();
-    expect(sinComentarios).toBe(ESQUEMA.trim());
+
+  it('0001_inicial.sql coincide con el esquema de SQLite', async () => {
+    expect(await leer('0001_inicial.sql')).toBe(ESQUEMA.trim());
+  });
+
+  it('0002_intentos_login.sql coincide con el esquema solo remoto', async () => {
+    expect(await leer('0002_intentos_login.sql')).toBe(ESQUEMA_REMOTO.trim());
+  });
+
+  it('no hay migraciones sin revisar', async () => {
+    expect((await readdir(new URL('../migrations/', import.meta.url))).sort()).toEqual([
+      '0001_inicial.sql',
+      '0002_intentos_login.sql',
+    ]);
   });
 });
 
