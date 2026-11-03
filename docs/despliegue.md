@@ -33,6 +33,9 @@ npx wrangler kv namespace create OAUTH_KV
 npx wrangler r2 bucket create banqueunt-mcp-bancos
 ```
 
+Si wrangler pregunta _«Would you like Wrangler to add it on your behalf?»_, responde **no**: los bindings ya
+están en `wrangler.jsonc` (con otro nombre que el que propone) y los duplicaría.
+
 Copia en `wrangler.jsonc` los dos ids que imprimen los dos primeros comandos (no son secretos, van al repo):
 
 - `d1_databases[0].database_id` ← el `database_id` de la D1
