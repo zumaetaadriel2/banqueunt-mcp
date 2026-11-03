@@ -1,0 +1,38 @@
+// Worker de BanqueUNT MCP (modo remoto): /mcp protegido con OAuth 2.1 y login con la cuenta de BanqueUNT.
+// En local: `npm run worker:migrar` y `npm run worker:dev`, con los secrets en .dev.vars (ver .dev.vars.example).
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "banqueunt-mcp",
+  "main": "src/worker.ts",
+  "compatibility_date": "2026-10-01",
+  // CIMD: la librería OAuth descarga los metadatos del cliente; esta flag impide que apunten a IPs privadas
+  "compatibility_flags": ["global_fetch_strictly_public"],
+  "observability": { "enabled": true },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "banqueunt-mcp",
+      // En local (wrangler dev) da igual. Antes de desplegar: `npx wrangler d1 create banqueunt-mcp` y pegar el id.
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations",
+    },
+  ],
+  // Banco real, privado (sin acceso público). Lo llena `npm run subir-banco`; si está vacío se usa la muestra.
+  // Antes de desplegar: `npx wrangler r2 bucket create banqueunt-mcp-bancos`.
+  "r2_buckets": [{ "binding": "BANCO", "bucket_name": "banqueunt-mcp-bancos" }],
+  // Clientes, grants y tokens OAuth (solo hashes y props cifradas). Antes de desplegar:
+  // `npx wrangler kv namespace create OAUTH_KV` y pegar el id.
+  "kv_namespaces": [{ "binding": "OAUTH_KV", "id": "00000000000000000000000000000000" }],
+  "vars": {
+    "BANQUEUNT_CURSOS": "med2_unt",
+    // Preguntas que cada alumno puede recibir al día
+    "BANQUEUNT_TOPE_DIARIO": "300",
+    // URL pública del Worker: identifica el recurso OAuth (/mcp) y el emisor de los tokens. Va vacía a
+    // propósito hasta poner la de producción (https://banqueunt-mcp.<subdominio>.workers.dev o tu dominio);
+    // en local la pone .dev.vars (http://127.0.0.1:8787), así un deploy nunca sale con la de desarrollo.
+    "BANQUEUNT_ORIGEN": "",
+    "SUPABASE_URL": "https://uhzyztyrcylzyfgmsivx.supabase.co",
+  },
+  // Los valores no van en este archivo: en local, en .dev.vars; en producción, `npx wrangler secret put <NOMBRE>`
+  "secrets": { "required": ["SUPABASE_ANON_KEY", "CONSENT_SECRET"] },
+}

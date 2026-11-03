@@ -1,8 +1,8 @@
-import { Client } from '@modelcontextprotocol/sdk/client/index.js';
-import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
+import { Client, InMemoryTransport } from '@modelcontextprotocol/client';
 import { describe, expect, it } from 'vitest';
 import type { Pregunta } from '../src/datos/esquema.js';
-import { MuestraLocal, type FuenteBanco } from '../src/datos/fuentes.js';
+import { MuestraLocal } from '../src/datos/fuentes-node.js';
+import type { FuenteBanco } from '../src/datos/fuentes.js';
 import { SqliteProgresoRepo } from '../src/persistencia/sqlite.js';
 import { crearServidor, type OpcionesServidor } from '../src/server.js';
 import { pregunta } from './helpers.js';

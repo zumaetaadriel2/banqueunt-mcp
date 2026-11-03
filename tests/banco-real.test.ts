@@ -1,6 +1,6 @@
 // Valida el banco real de examen-pwa. Solo corre en local: BANQUEUNT_DATA=C:\...\examen-pwa\data npm test
 import { describe, expect, it } from 'vitest';
-import { CarpetaLocal } from '../src/datos/fuentes.js';
+import { CarpetaLocal } from '../src/datos/fuentes-node.js';
 import { estadisticasCurso } from '../src/dominio/estadisticas.js';
 
 const carpeta = process.env.BANQUEUNT_DATA;

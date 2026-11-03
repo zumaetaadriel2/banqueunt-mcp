@@ -1,4 +1,4 @@
-import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import type { McpServer } from '@modelcontextprotocol/server';
 import { z } from 'zod';
 import { filtrar, paginar } from '../dominio/busqueda.js';
 import { aPreguntaPublica, textoPregunta } from '../dominio/publico.js';
@@ -15,7 +15,7 @@ export function registrarBuscar(server: McpServer, ctx: Contexto): void {
       description:
         'Busca preguntas del banco por texto y filtros. Devuelve enunciado y alternativas, nunca la respuesta ' +
         'ni la explicación. Para practicar con corrección usa generar_simulacro.',
-      inputSchema: {
+      inputSchema: z.object({
         curso: z.string().optional().describe('Id del curso; opcional si el servidor tiene uno solo'),
         texto: z
           .string()
@@ -28,13 +28,13 @@ export function registrarBuscar(server: McpServer, ctx: Contexto): void {
         solo_prioritarias: z.boolean().optional(),
         limite: z.int().min(1).max(LIMITE_BUSQUEDA).default(10),
         cursor: z.string().optional().describe('El valor "siguiente" de la página anterior'),
-      },
-      outputSchema: {
+      }),
+      outputSchema: z.object({
         curso: z.string(),
         total: z.int(),
         preguntas: z.array(PreguntaPublica),
         siguiente: z.string().optional(),
-      },
+      }),
       annotations: { readOnlyHint: true, openWorldHint: false },
     },
     (args) =>

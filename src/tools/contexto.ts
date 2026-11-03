@@ -1,4 +1,4 @@
-import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
+import type { CallToolResult } from '@modelcontextprotocol/server';
 import type { Banco } from '../dominio/banco.js';
 import { inicioDelDia, mensajeTope } from '../dominio/limites.js';
 import type { Llamada, ProgresoRepo } from '../persistencia/repo.js';

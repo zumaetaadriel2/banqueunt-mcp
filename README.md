@@ -12,17 +12,9 @@ Students can search questions, take mock exams, get graded with detailed explana
 
 ## Demo
 
-```text
-You:    Give me a 5-question mock exam on Cardiology.
-Claude: [generar_simulacro] Mock exam 5e63c63bf544 · med2_unt · 5 questions
-        1. A 62-year-old man with dyspnea and orthopnea… A) … B) … C) … D) … E) …
-        …
-You:    1 C, 2 A, 3 B, 4 D, 5 A
-Claude: [corregir_simulacro] Score: 4/5 (80 %)
-        ✘ 3. You answered B, key D. Why D: … Why not B: … Remember: …
-You:    What should I review?
-Claude: [mi_progreso] Weakest topics: Heart failure (40 %), Valvular disease (50 %)…
-```
+![Claude generates a 3-question Cardiology mock exam, grades the answers with explanations and suggests what to review](docs/demo.gif)
+
+_Claude Code with the bundled sample bank (in Spanish): `generar_simulacro` → the student answers → `corregir_simulacro` → `mi_progreso`._
 
 ## Features
 
@@ -144,10 +136,12 @@ flowchart LR
 ```
 src/
   index.ts          stdio entry point
+  worker.ts         Cloudflare Workers entry point: OAuth 2.1 + Streamable HTTP (work in progress)
+  remoto/           remote mode: Supabase sign-in, token props, login rate limit, consent page, R2 bank
   server.ts         registers tools, resources and prompts
   datos/            zod schema, explanation normalizer, dedup signature, question sources
   dominio/          pure logic: search, mock exams, grading, progress, daily limit
-  persistencia/     ProgresoRepo interface + SQLite implementation
+  persistencia/     ProgresoRepo interface + SQLite (local) and Cloudflare D1 (remote) implementations
   tools/            one file per group of tools
 tests/              Vitest: unit tests + end-to-end tests with a real MCP client in memory
 ```
@@ -172,7 +166,7 @@ npm run uso -- 7    # calls and questions served per user in the last 7 days
 
 ## Roadmap
 
-- Remote mode for subscribers: Streamable HTTP on Cloudflare Workers, OAuth 2.1 with Supabase Auth login, the bank in a private R2 bucket and progress in D1.
+- Remote mode for subscribers on Cloudflare Workers. Done: stateless Streamable HTTP entry point, progress in D1, and OAuth 2.1 (dynamic client registration and Client ID Metadata Documents) where students sign in with their BanqueUNT account (Supabase Auth) and only see the courses returned by the `mis_cursos()` RPC, re-checked on every token refresh. The full bank lives in a private R2 bucket, uploaded from the maintainer's machine by `npm run subir-banco` (only changed files, hash-checked). Runs locally with `npm run worker:migrar` and `npm run worker:dev`. Next: the public deployment ([deployment guide, in Spanish](docs/despliegue.md)).
 - More courses (ENCIB, Residentado) and images.
 - `npx banqueunt-mcp` on npm.
 

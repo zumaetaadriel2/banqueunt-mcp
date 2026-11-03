@@ -9,3 +9,8 @@ coverage/
 # El banco real nunca se versiona: solo la muestra pública
 data/*
 !data/muestra.json
+# Estado local de wrangler (D1 local, caché)
+.wrangler/
+.dev.vars
+.dev.vars.*
+!.dev.vars.example

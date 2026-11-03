@@ -10,44 +10,7 @@ import type {
   Simulacro,
   UsoUsuario,
 } from './repo.js';
-
-const ESQUEMA = `
-create table if not exists simulacros (
-  id            text primary key,
-  usuario       text not null,
-  curso         text not null,
-  creado_en     text not null,
-  expira_en     text not null,
-  corregido_en  text,
-  aciertos      integer
-);
-create index if not exists simulacros_usuario on simulacros (usuario, curso, creado_en);
-
-create table if not exists simulacro_items (
-  simulacro_id  text not null references simulacros (id) on delete cascade,
-  orden         integer not null,
-  pregunta_id   text not null,
-  firma         text not null,
-  especialidad  text not null,
-  tema          text not null,
-  clave         integer not null,
-  n_opciones    integer not null,
-  respuesta     integer,
-  correcta      integer,
-  primary key (simulacro_id, orden)
-);
-create index if not exists items_pregunta on simulacro_items (pregunta_id);
-
-create table if not exists llamadas (
-  id           integer primary key,
-  usuario      text not null,
-  herramienta  text not null,
-  cantidad     integer not null,
-  en           text not null,
-  resultado    text not null
-);
-create index if not exists llamadas_usuario on llamadas (usuario, en);
-`;
+import { aItemRespondido, aResumen, aSimulacro, aUso, ESQUEMA, SQL, type Fila } from './sql.js';
 
 /** %LOCALAPPDATA%\banqueunt-mcp\progreso.db en Windows; ~/.local/share/banqueunt-mcp en el resto. */
 export function rutaPorDefecto(): string {
@@ -57,8 +20,6 @@ export function rutaPorDefecto(): string {
       : (process.env.XDG_DATA_HOME ?? path.join(homedir(), '.local', 'share'));
   return path.join(base, 'banqueunt-mcp', 'progreso.db');
 }
-
-type Fila = Record<string, string | number | null>;
 
 export class SqliteProgresoRepo implements ProgresoRepo {
   private readonly db: DatabaseSync;
@@ -72,15 +33,9 @@ export class SqliteProgresoRepo implements ProgresoRepo {
   }
 
   async crearSimulacro(s: Simulacro): Promise<void> {
-    const insertarItem = this.db.prepare(
-      `insert into simulacro_items
-         (simulacro_id, orden, pregunta_id, firma, especialidad, tema, clave, n_opciones)
-       values (?, ?, ?, ?, ?, ?, ?, ?)`,
-    );
+    const insertarItem = this.db.prepare(SQL.insertarItem);
     this.transaccion(() => {
-      this.db
-        .prepare(`insert into simulacros (id, usuario, curso, creado_en, expira_en) values (?, ?, ?, ?, ?)`)
-        .run(s.id, s.usuario, s.curso, s.creadoEn, s.expiraEn);
+      this.db.prepare(SQL.insertarSimulacro).run(s.id, s.usuario, s.curso, s.creadoEn, s.expiraEn);
       for (const it of s.items) {
         insertarItem.run(
           s.id,
@@ -97,32 +52,9 @@ export class SqliteProgresoRepo implements ProgresoRepo {
   }
 
   async obtenerSimulacro(id: string, usuario: string): Promise<Simulacro | undefined> {
-    const s = this.db.prepare('select * from simulacros where id = ? and usuario = ?').get(id, usuario) as
-      Fila | undefined;
+    const s = this.db.prepare(SQL.simulacro).get(id, usuario) as Fila | undefined;
     if (!s) return undefined;
-    const items = this.db
-      .prepare('select * from simulacro_items where simulacro_id = ? order by orden')
-      .all(id) as Fila[];
-    return {
-      id: String(s.id),
-      usuario: String(s.usuario),
-      curso: String(s.curso),
-      creadoEn: String(s.creado_en),
-      expiraEn: String(s.expira_en),
-      corregidoEn: s.corregido_en === null ? null : String(s.corregido_en),
-      aciertos: s.aciertos === null ? null : Number(s.aciertos),
-      items: items.map((it) => ({
-        orden: Number(it.orden),
-        preguntaId: String(it.pregunta_id),
-        firma: String(it.firma),
-        especialidad: String(it.especialidad),
-        tema: String(it.tema),
-        clave: Number(it.clave),
-        nOpciones: Number(it.n_opciones),
-        respuesta: it.respuesta === null ? null : Number(it.respuesta),
-        correcta: it.correcta === null ? null : it.correcta === 1,
-      })),
-    };
+    return aSimulacro(s, this.db.prepare(SQL.itemsDeSimulacro).all(id) as Fila[]);
   }
 
   async guardarCorreccion(
@@ -131,15 +63,10 @@ export class SqliteProgresoRepo implements ProgresoRepo {
     corregidoEn: string,
     items: { orden: number; respuesta: number | null; correcta: boolean }[],
   ): Promise<void> {
-    const actualizarItem = this.db.prepare(
-      'update simulacro_items set respuesta = ?, correcta = ? where simulacro_id = ? and orden = ?',
-    );
+    const actualizarItem = this.db.prepare(SQL.actualizarItem);
     this.transaccion(() => {
-      // La condición «corregido_en is null» impide corregir dos veces aunque lleguen dos llamadas a la vez
       const r = this.db
-        .prepare(
-          'update simulacros set corregido_en = ?, aciertos = ? where id = ? and usuario = ? and corregido_en is null',
-        )
+        .prepare(SQL.marcarCorregido)
         .run(corregidoEn, items.filter((it) => it.correcta).length, id, usuario);
       if (Number(r.changes) !== 1) throw new Error('El simulacro ya fue corregido o no existe.');
       for (const it of items) actualizarItem.run(it.respuesta, it.correcta ? 1 : 0, id, it.orden);
@@ -147,103 +74,36 @@ export class SqliteProgresoRepo implements ProgresoRepo {
   }
 
   async firmasVistas(usuario: string, curso: string): Promise<Set<string>> {
-    const filas = this.db
-      .prepare(
-        `select distinct i.firma from simulacro_items i
-           join simulacros s on s.id = i.simulacro_id
-          where s.usuario = ? and s.curso = ?`,
-      )
-      .all(usuario, curso) as Fila[];
+    const filas = this.db.prepare(SQL.firmasVistas).all(usuario, curso) as Fila[];
     return new Set(filas.map((f) => String(f.firma)));
   }
 
   async simulacrosCorregidos(usuario: string, curso?: string): Promise<ResumenSimulacro[]> {
-    const filas = this.db
-      .prepare(
-        `select s.id, s.curso, s.creado_en, s.corregido_en, s.aciertos,
-                (select count(*) from simulacro_items i where i.simulacro_id = s.id) as total
-           from simulacros s
-          where s.usuario = ? and s.corregido_en is not null and (? is null or s.curso = ?)
-          order by s.corregido_en desc`,
-      )
-      .all(usuario, curso ?? null, curso ?? null) as Fila[];
-    return filas.map((f) => ({
-      id: String(f.id),
-      curso: String(f.curso),
-      creadoEn: String(f.creado_en),
-      corregidoEn: String(f.corregido_en),
-      aciertos: Number(f.aciertos),
-      total: Number(f.total),
-    }));
+    const filas = this.db.prepare(SQL.simulacrosCorregidos).all(usuario, curso ?? null, curso ?? null);
+    return (filas as Fila[]).map(aResumen);
   }
 
   async itemsRespondidos(usuario: string, curso?: string): Promise<ItemRespondido[]> {
-    const filas = this.db
-      .prepare(
-        `select s.id as simulacro_id, s.curso, s.corregido_en, i.pregunta_id, i.especialidad, i.tema, i.correcta
-           from simulacro_items i
-           join simulacros s on s.id = i.simulacro_id
-          where s.usuario = ? and s.corregido_en is not null and (? is null or s.curso = ?)
-          order by s.corregido_en desc, i.orden`,
-      )
-      .all(usuario, curso ?? null, curso ?? null) as Fila[];
-    return filas.map((f) => ({
-      simulacroId: String(f.simulacro_id),
-      curso: String(f.curso),
-      corregidoEn: String(f.corregido_en),
-      preguntaId: String(f.pregunta_id),
-      especialidad: String(f.especialidad),
-      tema: String(f.tema),
-      correcta: f.correcta === 1,
-    }));
+    const filas = this.db.prepare(SQL.itemsRespondidos).all(usuario, curso ?? null, curso ?? null);
+    return (filas as Fila[]).map(aItemRespondido);
   }
 
   async preguntaCorregida(usuario: string, preguntaId: string): Promise<{ curso: string } | undefined> {
-    const f = this.db
-      .prepare(
-        `select s.curso from simulacro_items i
-           join simulacros s on s.id = i.simulacro_id
-          where s.usuario = ? and i.pregunta_id = ? and s.corregido_en is not null
-          limit 1`,
-      )
-      .get(usuario, preguntaId) as Fila | undefined;
+    const f = this.db.prepare(SQL.preguntaCorregida).get(usuario, preguntaId) as Fila | undefined;
     return f ? { curso: String(f.curso) } : undefined;
   }
 
   async registrarLlamada(l: Llamada): Promise<void> {
-    this.db
-      .prepare('insert into llamadas (usuario, herramienta, cantidad, en, resultado) values (?, ?, ?, ?, ?)')
-      .run(l.usuario, l.herramienta, l.cantidad, l.en, l.resultado);
+    this.db.prepare(SQL.registrarLlamada).run(l.usuario, l.herramienta, l.cantidad, l.en, l.resultado);
   }
 
   async preguntasServidas(usuario: string, desde: string): Promise<number> {
-    const f = this.db
-      .prepare(
-        `select coalesce(sum(cantidad), 0) as total from llamadas
-          where usuario = ? and en >= ? and resultado = 'ok'`,
-      )
-      .get(usuario, desde) as Fila;
+    const f = this.db.prepare(SQL.preguntasServidas).get(usuario, desde) as Fila;
     return Number(f.total);
   }
 
   async usoPorUsuario(desde: string): Promise<UsoUsuario[]> {
-    const filas = this.db
-      .prepare(
-        `select usuario, count(*) as llamadas,
-                coalesce(sum(case when resultado = 'ok' then cantidad end), 0) as preguntas,
-                sum(resultado = 'limite') as rechazadas
-           from llamadas
-          where en >= ?
-          group by usuario
-          order by preguntas desc, llamadas desc`,
-      )
-      .all(desde) as Fila[];
-    return filas.map((f) => ({
-      usuario: String(f.usuario),
-      llamadas: Number(f.llamadas),
-      preguntas: Number(f.preguntas),
-      rechazadas: Number(f.rechazadas),
-    }));
+    return (this.db.prepare(SQL.usoPorUsuario).all(desde) as Fila[]).map(aUso);
   }
 
   cerrar(): void {

@@ -1,6 +1,6 @@
 {
   "name": "banqueunt-mcp",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "MCP server that exposes the BanqueUNT medical question bank to AI assistants",
   "type": "module",
   "bin": {
@@ -17,27 +17,36 @@
     "build": "tsc -p tsconfig.build.json",
     "dev": "tsx src/index.ts",
     "start": "node dist/index.js",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.worker.json",
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "vitest run",
     "inspector": "npx @modelcontextprotocol/inspector node dist/index.js",
     "muestra": "tsx scripts/crear-muestra.ts",
-    "uso": "tsx scripts/uso.ts"
+    "uso": "tsx scripts/uso.ts",
+    "worker:migrar": "wrangler d1 migrations apply banqueunt-mcp --local",
+    "worker:dev": "wrangler dev",
+    "worker:check": "wrangler deploy --dry-run --outdir .wrangler/dry-run",
+    "worker:tipos": "wrangler types src/worker-configuration.d.ts --strict-vars=false",
+    "worker:tipos:check": "wrangler types src/worker-configuration.d.ts --strict-vars=false --check",
+    "subir-banco": "tsx scripts/subir-banco.ts"
   },
   "license": "MIT",
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.32.2",
+    "@cloudflare/workers-oauth-provider": "^1.2.4",
+    "@modelcontextprotocol/server": "^2.4.0",
     "zod": "^4.6.7"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@modelcontextprotocol/client": "^2.4.0",
     "@types/node": "^22.20.5",
     "eslint": "^10.14.0",
     "prettier": "^3.9.10",
     "tsx": "^4.23.15",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.72.1",
-    "vitest": "^5.0.5"
+    "vitest": "^5.0.5",
+    "wrangler": "^4.156.1"
   }
 }

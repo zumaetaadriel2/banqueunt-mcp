@@ -1,5 +1,4 @@
-import { ResourceTemplate, type McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import type { ReadResourceResult } from '@modelcontextprotocol/sdk/types.js';
+import { ResourceTemplate, type McpServer, type ReadResourceResult } from '@modelcontextprotocol/server';
 import { estadisticasCurso } from './dominio/estadisticas.js';
 import { aPreguntaPublica } from './dominio/publico.js';
 import { registrado, type Contexto } from './tools/contexto.js';
