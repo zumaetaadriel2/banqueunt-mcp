@@ -17,6 +17,9 @@
       "migrations_dir": "migrations",
     },
   ],
+  // Banco real, privado (sin acceso público). Lo llena `npm run subir-banco`; si está vacío se usa la muestra.
+  // Antes de desplegar: `npx wrangler r2 bucket create banqueunt-mcp-bancos`.
+  "r2_buckets": [{ "binding": "BANCO", "bucket_name": "banqueunt-mcp-bancos" }],
   // Clientes, grants y tokens OAuth (solo hashes y props cifradas). Antes de desplegar:
   // `npx wrangler kv namespace create OAUTH_KV` y pegar el id.
   "kv_namespaces": [{ "binding": "OAUTH_KV", "id": "00000000000000000000000000000000" }],
@@ -24,9 +27,10 @@
     "BANQUEUNT_CURSOS": "med2_unt",
     // Preguntas que cada alumno puede recibir al día
     "BANQUEUNT_TOPE_DIARIO": "300",
-    // Origen público del Worker: identifica el recurso OAuth (/mcp) y el emisor de los tokens.
-    // En producción, el de workers.dev o tu dominio (p. ej. https://banqueunt-mcp.<cuenta>.workers.dev).
-    "BANQUEUNT_ORIGEN": "http://127.0.0.1:8787",
+    // URL pública del Worker: identifica el recurso OAuth (/mcp) y el emisor de los tokens. Va vacía a
+    // propósito hasta poner la de producción (https://banqueunt-mcp.<subdominio>.workers.dev o tu dominio);
+    // en local la pone .dev.vars (http://127.0.0.1:8787), así un deploy nunca sale con la de desarrollo.
+    "BANQUEUNT_ORIGEN": "",
     "SUPABASE_URL": "https://uhzyztyrcylzyfgmsivx.supabase.co",
   },
   // Los valores no van en este archivo: en local, en .dev.vars; en producción, `npx wrangler secret put <NOMBRE>`

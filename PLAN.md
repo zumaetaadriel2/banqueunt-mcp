@@ -162,12 +162,13 @@ Los aciertos por tema se calculan con un join contra el banco cargado. La ruta d
 - [x] **6a-2.** Entrada `worker.ts` con `createMcpHandler` (Streamable HTTP sin estado: un servidor por petición), muestra embebida, `D1ProgresoRepo` y prueba con `wrangler dev`. Sin despliegue público hasta tener login (6b)
 - [x] **Autenticación (6b):** el servidor actúa como _resource server_ OAuth 2.1 según la spec de autorización de MCP. Recomendación: desplegar en **Cloudflare Workers** (ya usas Cloudflare para la PWA) con `@cloudflare/workers-oauth-provider`. La pantalla de login usa Supabase Auth (email y contraseña de BanqueUNT). **Solo en ese momento** se llama al RPC `mis_cursos()` con el JWT del alumno, sin reimplementar la regla, y el resultado se guarda en las _props_ del token OAuth. El Worker solo tiene la URL y la anon key; **la service role key nunca va en el Worker**. Si el admin cambia los cursos de un alumno, el cambio se aplica al refrescar el token, por ejemplo cada 24 h.
   - Hecho: `OAuthProvider` en el mismo Worker (registro dinámico y CIMD), login con correo y contraseña en `/authorize`, token de acceso de 1 h y cada renovación vuelve a llamar a `mis_cursos()` (cuenta desactivada → `invalid_grant`). Límite de logins fallidos por correo y por IP en D1 (`migrations/0002_intentos_login.sql`).
-  - [ ] Probar el login real con una cuenta de BanqueUNT (`wrangler dev` + Claude Code o MCP Inspector)
+  - [x] Probar el login real con una cuenta de BanqueUNT (`wrangler dev` + Claude Code)
   - Alternativa más simple si OAuth se complica: un token personal generado en la cuenta de BanqueUNT y enviado como `Authorization: Bearer`
-- [ ] Banco en R2 privado: el script `scripts/subir-r2.ts` lee `index.json`, sube solo los archivos cuya huella cambió (como `subir_bancos.js`), borra los que ya no están en el índice y aborta si el índice está desfasado
+- [x] Banco en R2 privado (6c): el script `scripts/subir-banco.ts` lee `index.json`, sube solo los archivos cuya huella cambió (como `subir_bancos.js`), borra los que ya no están en el índice y aborta si el índice está desfasado
 - [x] Persistencia remota en **Cloudflare D1** (`d1.ts`, mismo esquema y consultas que SQLite vía `sql.ts`, tests de contrato compartidos). Los límites diarios y el registro de llamadas también van en D1
 - [x] Filtrar por el usuario del token: progreso y tope diario por alumno, y el banco limitado a sus cursos (`Banco.restringido`)
 - [ ] Verificar en el dashboard de Supabase que el uso solo sube con los logins
+- [ ] Desplegar siguiendo [docs/despliegue.md](docs/despliegue.md) (D1, KV, R2, secrets, `BANQUEUNT_ORIGEN`)
 - [ ] Probar con el conector remoto de Claude.ai y con otro cliente (ChatGPT o Cursor) para cumplir el "con su IA favorita"
 - [ ] Publicar en npm (`npx banqueunt-mcp`), que funciona en modo muestra o carpeta local
 

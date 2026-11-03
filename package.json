@@ -28,7 +28,8 @@
     "worker:dev": "wrangler dev",
     "worker:check": "wrangler deploy --dry-run --outdir .wrangler/dry-run",
     "worker:tipos": "wrangler types src/worker-configuration.d.ts --strict-vars=false",
-    "worker:tipos:check": "wrangler types src/worker-configuration.d.ts --strict-vars=false --check"
+    "worker:tipos:check": "wrangler types src/worker-configuration.d.ts --strict-vars=false --check",
+    "subir-banco": "tsx scripts/subir-banco.ts"
   },
   "license": "MIT",
   "dependencies": {

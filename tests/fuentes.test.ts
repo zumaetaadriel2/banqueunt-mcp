@@ -1,9 +1,10 @@
+import { createHash } from 'node:crypto';
 import { mkdir, mkdtemp, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { CarpetaLocal, huellaDeTexto, MuestraLocal } from '../src/datos/fuentes-node.js';
-import { CursoNoDisponible } from '../src/datos/fuentes.js';
+import { CarpetaLocal, MuestraLocal } from '../src/datos/fuentes-node.js';
+import { CursoNoDisponible, huellaDeTexto, rutaEnData } from '../src/datos/fuentes.js';
 import { pregunta } from './helpers.js';
 
 async function carpetaDePrueba(versionCorrecta = true) {
@@ -18,7 +19,7 @@ async function carpetaDePrueba(versionCorrecta = true) {
   for (const [archivo, contenido] of Object.entries(archivos)) {
     const texto = JSON.stringify(contenido);
     await writeFile(path.join(raiz, archivo.replace(/^data\//, '')), texto);
-    versiones[archivo] = versionCorrecta ? huellaDeTexto(texto) : '000000000000';
+    versiones[archivo] = versionCorrecta ? await huellaDeTexto(texto) : '000000000000';
   }
   const indice = {
     version: 1,
@@ -53,9 +54,22 @@ describe('CarpetaLocal', () => {
 });
 
 describe('huellaDeTexto', () => {
-  it('no depende de los finales de línea', () => {
-    expect(huellaDeTexto('a\r\nb')).toBe(huellaDeTexto('a\nb'));
-    expect(huellaDeTexto('a\nb')).toHaveLength(12);
+  it('no depende de los finales de línea', async () => {
+    expect(await huellaDeTexto('a\r\nb')).toBe(await huellaDeTexto('a\nb'));
+    expect(await huellaDeTexto('a\nb')).toHaveLength(12);
+  });
+
+  it('es la misma que la de builder_banco.js (sha256 hex de 12 caracteres)', async () => {
+    const texto = '[{"id":"X"}]\n';
+    expect(await huellaDeTexto(texto)).toBe(createHash('sha256').update(texto).digest('hex').slice(0, 12));
+  });
+});
+
+describe('rutaEnData', () => {
+  it('quita data/ y exige la carpeta del curso', () => {
+    expect(rutaEnData('data/med2_unt/examenes_2021.json', 'med2_unt')).toBe('med2_unt/examenes_2021.json');
+    expect(() => rutaEnData('data/encib/x.json', 'med2_unt')).toThrow(/carpeta de su curso/);
+    expect(() => rutaEnData('data/med2_unt/../encib/x.json', 'med2_unt')).toThrow();
   });
 });
 

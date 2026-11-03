@@ -6,3 +6,6 @@ SUPABASE_ANON_KEY=
 # Firma las cookies del consentimiento: 32+ caracteres al azar, p. ej.
 #   node -e "console.log(require('crypto').randomBytes(32).toString('base64url'))"
 CONSENT_SECRET=
+
+# URL del Worker en local (en producción va en wrangler.jsonc)
+BANQUEUNT_ORIGEN=http://127.0.0.1:8787

@@ -16,7 +16,6 @@ import {
 } from '@modelcontextprotocol/server';
 import muestra from '../data/muestra.json' with { type: 'json' };
 import { leerCursos, MuestraEmbebida } from './datos/fuentes.js';
-import { Banco } from './dominio/banco.js';
 import { leerTopeDiario } from './dominio/limites.js';
 import { D1ProgresoRepo } from './persistencia/d1.js';
 import {
@@ -27,6 +26,7 @@ import {
   SinCursos,
   type PropsGrant,
 } from './remoto/acceso.js';
+import { SelectorBanco } from './remoto/banco-r2.js';
 import { IntentosLogin } from './remoto/intentos.js';
 import { cabecerasHtml, paginaError, paginaLogin, type DatosConsentimiento } from './remoto/pagina.js';
 import { ClienteSupabase, CredencialesInvalidas } from './remoto/supabase.js';
@@ -48,11 +48,16 @@ const VIDA_CONSENTIMIENTO_S = 600;
 
 type EnvConOAuth = Env & { OAUTH_PROVIDER: OAuthHelpers };
 
-// Viven lo que viva el isolate: la muestra se valida y deduplica una sola vez para todos los alumnos
-let banco: Banco | undefined;
+// Viven lo que viva el isolate: el banco se valida y deduplica una sola vez para todos los alumnos
+let selector: SelectorBanco | undefined;
 let proveedor: OAuthProvider<Env> | undefined;
 
-const origenDe = (env: Env) => new URL(env.BANQUEUNT_ORIGEN).origin;
+function origenDe(env: Env): string {
+  if (!env.BANQUEUNT_ORIGEN) {
+    throw new Error('Falta BANQUEUNT_ORIGEN: la URL pública del Worker (en local va en .dev.vars).');
+  }
+  return new URL(env.BANQUEUNT_ORIGEN).origin;
+}
 const supabase = (env: Env) => new ClienteSupabase({ url: env.SUPABASE_URL, anonKey: env.SUPABASE_ANON_KEY });
 
 function html(cuerpo: string, status = 200, headers?: Headers): Response {
@@ -72,8 +77,10 @@ const mcp = {
     const acceso = leerPropsAcceso((ctx as ExecutionContext<unknown>).props);
     if (!acceso) return new Response('Token sin usuario', { status: 403 });
 
-    banco ??= new Banco(new MuestraEmbebida(muestra, leerCursos(env.BANQUEUNT_CURSOS)));
-    const delAlumno = banco.restringido(acceso.cursos);
+    // El banco real de R2 si ya se subió; si no, la muestra
+    const cursos = leerCursos(env.BANQUEUNT_CURSOS);
+    selector ??= new SelectorBanco(env.BANCO, cursos, () => new MuestraEmbebida(muestra, cursos));
+    const delAlumno = (await selector.banco()).restringido(acceso.cursos);
     const repo = new D1ProgresoRepo(env.DB);
     const topeDiario = leerTopeDiario(env.BANQUEUNT_TOPE_DIARIO);
     const handler = createMcpHandler(() =>
