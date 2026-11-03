@@ -17,7 +17,7 @@
     "build": "tsc -p tsconfig.build.json",
     "dev": "tsx src/index.ts",
     "start": "node dist/index.js",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.worker.json",
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "vitest run",
@@ -26,10 +26,13 @@
     "uso": "tsx scripts/uso.ts",
     "worker:migrar": "wrangler d1 migrations apply banqueunt-mcp --local",
     "worker:dev": "wrangler dev",
-    "worker:check": "wrangler deploy --dry-run --outdir .wrangler/dry-run"
+    "worker:check": "wrangler deploy --dry-run --outdir .wrangler/dry-run",
+    "worker:tipos": "wrangler types src/worker-configuration.d.ts --strict-vars=false",
+    "worker:tipos:check": "wrangler types src/worker-configuration.d.ts --strict-vars=false --check"
   },
   "license": "MIT",
   "dependencies": {
+    "@cloudflare/workers-oauth-provider": "^1.2.4",
     "@modelcontextprotocol/server": "^2.4.0",
     "zod": "^4.6.7"
   },

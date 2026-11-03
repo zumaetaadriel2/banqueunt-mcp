@@ -8,7 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
-- Cloudflare Workers entry point (`src/worker.ts`): stateless MCP over Streamable HTTP at `/mcp` with the SDK's `createMcpHandler`, Host and Origin validation, and the bundled sample bank. Local only for now (`npm run worker:dev`); there is no login yet, so it is not deployed publicly.
+- OAuth 2.1 for the Worker with `@cloudflare/workers-oauth-provider`: discovery metadata (RFC 9728 and RFC 8414), dynamic client registration, Client ID Metadata Documents, PKCE (S256) and refresh tokens.
+- `/authorize` page where students sign in with their BanqueUNT email and password (Supabase Auth) and approve the client. Client-supplied text is escaped, the page cannot be framed, and the consent handle is single-use and browser-bound.
+- Per-student access: the token carries the Supabase user id and the courses from the `mis_cursos()` RPC. Progress and the daily cap are per student, and the bank is limited to their courses (`Banco.restringido`). Access tokens last one hour; every refresh renews the Supabase session and re-reads `mis_cursos()`, so revoked access stops at the next refresh.
+- Failed sign-in limit per email and per IP, stored in D1 (`migrations/0002_intentos_login.sql`).
+- Cloudflare Workers entry point (`src/worker.ts`): stateless MCP over Streamable HTTP at `/mcp` with the SDK's `createMcpHandler`, Host and Origin validation, and the bundled sample bank. Local only for now (`npm run worker:dev`); not deployed publicly yet.
 - `D1ProgresoRepo`: progress, mock exams and the call log in Cloudflare D1, sharing schema and queries with SQLite (`src/persistencia/sql.ts`) and the D1 migration `migrations/0001_inicial.sql`.
 - Shared contract tests that run against both SQLite and D1, and a CI step that bundles the Worker without deploying (`npm run worker:check`).
 - `scripts/probar-flujo.ts` (formerly `probar-stdio.ts`) can also test the flow over HTTP.

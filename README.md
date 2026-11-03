@@ -136,7 +136,8 @@ flowchart LR
 ```
 src/
   index.ts          stdio entry point
-  worker.ts         Cloudflare Workers entry point (Streamable HTTP, work in progress)
+  worker.ts         Cloudflare Workers entry point: OAuth 2.1 + Streamable HTTP (work in progress)
+  remoto/           remote mode: Supabase sign-in, token props, login rate limit, consent page
   server.ts         registers tools, resources and prompts
   datos/            zod schema, explanation normalizer, dedup signature, question sources
   dominio/          pure logic: search, mock exams, grading, progress, daily limit
@@ -165,7 +166,7 @@ npm run uso -- 7    # calls and questions served per user in the last 7 days
 
 ## Roadmap
 
-- Remote mode for subscribers on Cloudflare Workers. Done: stateless Streamable HTTP entry point and progress in D1, runnable locally with `npm run worker:migrar` and `npm run worker:dev` (sample bank only). Next: OAuth 2.1 with Supabase Auth login and the bank in a private R2 bucket.
+- Remote mode for subscribers on Cloudflare Workers. Done: stateless Streamable HTTP entry point, progress in D1, and OAuth 2.1 (dynamic client registration and Client ID Metadata Documents) where students sign in with their BanqueUNT account (Supabase Auth) and only see the courses returned by the `mis_cursos()` RPC, re-checked on every token refresh. Runs locally with `npm run worker:migrar` and `npm run worker:dev` (sample bank only). Next: the bank in a private R2 bucket and a public deployment.
 - More courses (ENCIB, Residentado) and images.
 - `npx banqueunt-mcp` on npm.
 

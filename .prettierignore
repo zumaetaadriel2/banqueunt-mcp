@@ -3,3 +3,4 @@ node_modules
 data/muestra.json
 package-lock.json
 .wrangler
+src/worker-configuration.d.ts
