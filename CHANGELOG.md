@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- The Worker serves the full bank from a private R2 bucket (`BancoR2`), with the same index and hash checks as the local folder, and falls back to the sample while the bucket is empty. It re-checks the index every five minutes and reloads when it changes.
+- `npm run subir-banco`: uploads `examen-pwa/data` to R2 (local or `--remoto`) for the enabled courses only, uploading just the changed files, then the index, then deleting removed files; `--simular` prints the plan, and it aborts if the local index is out of date.
+- Deployment guide (`docs/despliegue.md`).
 - OAuth 2.1 for the Worker with `@cloudflare/workers-oauth-provider`: discovery metadata (RFC 9728 and RFC 8414), dynamic client registration, Client ID Metadata Documents, PKCE (S256) and refresh tokens.
 - `/authorize` page where students sign in with their BanqueUNT email and password (Supabase Auth) and approve the client. Client-supplied text is escaped, the page cannot be framed, and the consent handle is single-use and browser-bound.
 - Per-student access: the token carries the Supabase user id and the courses from the `mis_cursos()` RPC. Progress and the daily cap are per student, and the bank is limited to their courses (`Banco.restringido`). Access tokens last one hour; every refresh renews the Supabase session and re-reads `mis_cursos()`, so revoked access stops at the next refresh.
@@ -19,6 +22,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- `BANQUEUNT_ORIGEN` in `wrangler.jsonc` is the production URL and stays empty until deployment (the Worker refuses to start without it); the local URL lives in `.dev.vars`.
+- `CarpetaLocal` and `BancoR2` share `FuenteIndexada`; `huellaDeTexto` now uses Web Crypto and is async.
 - Migrated to the MCP TypeScript SDK v2 (`@modelcontextprotocol/server` 2.4; `@modelcontextprotocol/client` for tests and scripts), replacing `@modelcontextprotocol/sdk` v1. This prepares the remote mode on Cloudflare Workers.
 - The stdio entry point uses `serveStdio`, so the server answers both 2025-era clients (with the `initialize` handshake) and clients of the stateless 2026 protocol revision.
 - Tool, output and prompt schemas are declared with `z.object(...)`; optional completable prompt arguments use `completable(schema).optional()`.
