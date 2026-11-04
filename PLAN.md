@@ -168,8 +168,10 @@ Los aciertos por tema se calculan con un join contra el banco cargado. La ruta d
 - [x] Persistencia remota en **Cloudflare D1** (`d1.ts`, mismo esquema y consultas que SQLite vía `sql.ts`, tests de contrato compartidos). Los límites diarios y el registro de llamadas también van en D1
 - [x] Filtrar por el usuario del token: progreso y tope diario por alumno, y el banco limitado a sus cursos (`Banco.restringido`)
 - [ ] Verificar en el dashboard de Supabase que el uso solo sube con los logins
-- [ ] Desplegar siguiendo [docs/despliegue.md](docs/despliegue.md) (D1, KV, R2, secrets, `BANQUEUNT_ORIGEN`)
-- [ ] Probar con el conector remoto de Claude.ai y con otro cliente (ChatGPT o Cursor) para cumplir el "con su IA favorita"
+- [x] Desplegar siguiendo [docs/despliegue.md](docs/despliegue.md): `https://banqueunt-mcp.zumaetaadriel2.workers.dev/mcp` (v0.2.1), con el banco real en R2
+- [x] Probar con el conector remoto de Claude.ai (login, estadísticas con `origen: r2`)
+- [ ] Probar con otro cliente (Cursor, ChatGPT o Gemini) para cumplir el "con su IA favorita"
+- [ ] Revisar el límite de _sign-ins_ de Supabase (Authentication → Rate Limits) antes de abrirlo a todos los alumnos
 - [ ] Publicar en npm (`npx banqueunt-mcp`), que funciona en modo muestra o carpeta local
 
 ---

@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-11-03
+
+The remote server is live at `https://banqueunt-mcp.zumaetaadriel2.workers.dev/mcp`.
+
+### Changed
+
+- Production configuration in `wrangler.jsonc`: D1 database, OAuth KV namespace, R2 bucket and the public URL (`BANQUEUNT_ORIGEN`).
+- README: new _Use it remotely_ section with the connector URL and how to add it in Claude.ai, Claude Code and other clients; the local setup is now under _Run it locally_.
+- Deployment guide: answer "no" when Wrangler offers to add the binding, which would duplicate it.
+
 ## [0.2.0] - 2026-11-03
 
 Remote mode: the same server now runs on Cloudflare Workers, where students sign in with their BanqueUNT account and practise with the full bank from any MCP client.
@@ -55,6 +65,7 @@ First public release: a local MCP server over stdio for the BanqueUNT medical qu
 - Tests with Vitest, including end-to-end tests with an in-memory MCP client that check no answer key, explanation or topic leaks before grading.
 - GitHub Actions CI (lint, typecheck, Prettier, build and tests on Node 22 and 24), README and MIT license.
 
-[Unreleased]: https://github.com/zumaetaadriel2/banqueunt-mcp/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/zumaetaadriel2/banqueunt-mcp/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/zumaetaadriel2/banqueunt-mcp/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/zumaetaadriel2/banqueunt-mcp/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/zumaetaadriel2/banqueunt-mcp/releases/tag/v0.1.0
