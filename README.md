@@ -37,7 +37,21 @@ Every tool declares an input and output schema with zod and returns `structuredC
 - `sesion_de_repaso`: a tutor that asks one question at a time, waits for the answer, grades it and explains.
 - `repasar_temas_debiles`: reads your progress and builds a mock exam from your weak topics.
 
-## Quick start
+## Use it remotely (BanqueUNT students)
+
+The server is deployed on Cloudflare Workers. If you have a BanqueUNT account, you don't need to install anything: add this URL as a connector in your MCP client and sign in with your BanqueUNT email and password.
+
+```text
+https://banqueunt-mcp.zumaetaadriel2.workers.dev/mcp
+```
+
+- **Claude.ai** (web, desktop and mobile): Settings → Connectors → **Add custom connector** → paste the URL → Connect.
+- **Claude Code:** `claude mcp add --transport http banqueunt https://banqueunt-mcp.zumaetaadriel2.workers.dev/mcp`, then `/mcp` → `banqueunt` → Authenticate.
+- **Cursor, VS Code** and other clients that support remote MCP servers with OAuth: add it as a Streamable HTTP server with the same URL.
+
+You only see the courses your BanqueUNT account has access to, and your progress is kept per account. Your password goes straight to BanqueUNT's sign-in and is never stored by the server.
+
+## Run it locally
 
 Requires **Node.js 22.13 or later** (it uses the built-in `node:sqlite`).
 
@@ -136,7 +150,7 @@ flowchart LR
 ```
 src/
   index.ts          stdio entry point
-  worker.ts         Cloudflare Workers entry point: OAuth 2.1 + Streamable HTTP (work in progress)
+  worker.ts         Cloudflare Workers entry point: OAuth 2.1 + Streamable HTTP
   remoto/           remote mode: Supabase sign-in, token props, login rate limit, consent page, R2 bank
   server.ts         registers tools, resources and prompts
   datos/            zod schema, explanation normalizer, dedup signature, question sources
@@ -166,7 +180,7 @@ npm run uso -- 7    # calls and questions served per user in the last 7 days
 
 ## Roadmap
 
-- Remote mode for subscribers on Cloudflare Workers. Done: stateless Streamable HTTP entry point, progress in D1, and OAuth 2.1 (dynamic client registration and Client ID Metadata Documents) where students sign in with their BanqueUNT account (Supabase Auth) and only see the courses returned by the `mis_cursos()` RPC, re-checked on every token refresh. The full bank lives in a private R2 bucket, uploaded from the maintainer's machine by `npm run subir-banco` (only changed files, hash-checked). Runs locally with `npm run worker:migrar` and `npm run worker:dev`. Next: the public deployment ([deployment guide, in Spanish](docs/despliegue.md)).
+- Test more clients (Cursor, ChatGPT, Gemini) against the remote server.
 - More courses (ENCIB, Residentado) and images.
 - `npx banqueunt-mcp` on npm.
 

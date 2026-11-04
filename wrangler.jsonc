@@ -1,5 +1,6 @@
 // Worker de BanqueUNT MCP (modo remoto): /mcp protegido con OAuth 2.1 y login con la cuenta de BanqueUNT.
 // En local: `npm run worker:migrar` y `npm run worker:dev`, con los secrets en .dev.vars (ver .dev.vars.example).
+// Despliegue: docs/despliegue.md.
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "banqueunt-mcp",
@@ -12,25 +13,23 @@
     {
       "binding": "DB",
       "database_name": "banqueunt-mcp",
-      // En local (wrangler dev) da igual. Antes de desplegar: `npx wrangler d1 create banqueunt-mcp` y pegar el id.
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      // Progreso, llamadas e intentos de login (`npx wrangler d1 create banqueunt-mcp`). En local se usa una copia local.
+      "database_id": "2ad0ba1f-686b-4088-b457-7641a5cb1a43",
       "migrations_dir": "migrations",
     },
   ],
   // Banco real, privado (sin acceso público). Lo llena `npm run subir-banco`; si está vacío se usa la muestra.
-  // Antes de desplegar: `npx wrangler r2 bucket create banqueunt-mcp-bancos`.
   "r2_buckets": [{ "binding": "BANCO", "bucket_name": "banqueunt-mcp-bancos" }],
-  // Clientes, grants y tokens OAuth (solo hashes y props cifradas). Antes de desplegar:
-  // `npx wrangler kv namespace create OAUTH_KV` y pegar el id.
-  "kv_namespaces": [{ "binding": "OAUTH_KV", "id": "00000000000000000000000000000000" }],
+  // Clientes, grants y tokens OAuth (solo hashes y props cifradas): `npx wrangler kv namespace create OAUTH_KV`
+  "kv_namespaces": [{ "binding": "OAUTH_KV", "id": "30e0ecfdde6f4d969084c11cf4f12ef2" }],
   "vars": {
     "BANQUEUNT_CURSOS": "med2_unt",
     // Preguntas que cada alumno puede recibir al día
     "BANQUEUNT_TOPE_DIARIO": "300",
-    // URL pública del Worker: identifica el recurso OAuth (/mcp) y el emisor de los tokens. Va vacía a
-    // propósito hasta poner la de producción (https://banqueunt-mcp.<subdominio>.workers.dev o tu dominio);
-    // en local la pone .dev.vars (http://127.0.0.1:8787), así un deploy nunca sale con la de desarrollo.
-    "BANQUEUNT_ORIGEN": "",
+    // URL pública del Worker: identifica el recurso OAuth (/mcp) y el emisor de los tokens. Si cambia (p. ej.
+    // a un dominio propio), los alumnos tienen que volver a conectar su cuenta. En local la pone .dev.vars
+    // (http://127.0.0.1:8787).
+    "BANQUEUNT_ORIGEN": "https://banqueunt-mcp.zumaetaadriel2.workers.dev",
     "SUPABASE_URL": "https://uhzyztyrcylzyfgmsivx.supabase.co",
   },
   // Los valores no van en este archivo: en local, en .dev.vars; en producción, `npx wrangler secret put <NOMBRE>`
